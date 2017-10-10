@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AgendaTelefonica</string>
+    <string name="Titulo">Agenda Telefónica</string>
+    <string name="botonAlta">Alta</string>
+    <string name="editTextNombre">Nombre:</string>
+    <string name="editTextApellidos">Apellidos:</string>
+    <string name="editTextTelefono">Teléfono:</string>
+    <string name="editTextSexo">Sexo:</string>
+    <string name="botonBorrar">Borrar</string>
+    <string name="tituloContactos">Contactos</string>
+</resources>
