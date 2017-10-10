@@ -33,6 +33,10 @@ public class ActivityPrincipal extends AppCompatActivity {
         return (EditText) findViewById(R.id.telefonoContacto);
     }
 
+    public EditText getEditTextEmail() {
+        return (EditText) findViewById(R.id.emailContacto);
+    }
+
 
     public RadioButton getEditTextSexo() {
         RadioButton RBHombre = (RadioButton) findViewById(R.id.radioButtonHombre);

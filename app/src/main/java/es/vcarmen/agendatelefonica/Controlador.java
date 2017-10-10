@@ -1,8 +1,10 @@
 package es.vcarmen.agendatelefonica;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class Controlador {
         this.personaDAO = personaDAO;
         accionBotonAlta();
         accionBotonBorrar();
-        //accionClickListView();
+        accionNumeroTotalContactos();
     }
 
     public void recogerInformacionEditText() {
@@ -30,14 +32,16 @@ public class Controlador {
         String apellidoContacto = activityPrincipal.getEditTextApellidos().getText().toString();
         String telefonoContacto = activityPrincipal.getEditTextTelefono().getText().toString();
         String sexoContacto = activityPrincipal.getEditTextSexo().getText().toString();
+        String emailContacto = activityPrincipal.getEditTextEmail().getText().toString();
 
-        listaPersonas.add(new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto));
+        listaPersonas.add(new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto));
     }
 
     public void eliminarInformacionEditText(){
         activityPrincipal.getEditTextNombre().setText("");
         activityPrincipal.getEditTextApellidos().setText("");
         activityPrincipal.getEditTextTelefono().setText("");
+        activityPrincipal.getEditTextEmail().setText("");
         if(activityPrincipal.getEditTextSexo().isChecked()) {
             activityPrincipal.getEditTextSexo().setChecked(false);
             activityPrincipal.getEditTextSexo().setChecked(false);
@@ -53,6 +57,7 @@ public class Controlador {
                 recogerInformacionEditText();
                 //activityPrincipal.getListaContactos().setText(obtenerContactos());
                 activityPrincipal.getListaContactos().setAdapter(new ArrayAdapter<String>(activityPrincipal.getApplicationContext(), android.R.layout.simple_list_item_1, obtenerContactos()));
+                accionNumeroTotalContactos();
             }
         });
     }
@@ -87,17 +92,11 @@ public class Controlador {
         RadioButton RBOtro = (RadioButton) activityPrincipal.findViewById(R.id.radioButtonOtro);
         RBOtro.setEnabled(true);
     }
-/**
-    private void accionClickListView(){
-        final List<Persona> lista = listaPersonas;
-        activityPrincipal.getListaContactos().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int posicion = activityPrincipal.getListaContactos().getSelectedItemPosition();
-                System.out.println(lista.get(posicion));
-            }
-        });
+
+    private void accionNumeroTotalContactos(){
+        int numero = listaPersonas.size();
+        TextView numeroTotal = (TextView) activityPrincipal.findViewById(R.id.numeroTotalContactos);
+        numeroTotal.setText("Total: " + numero);
     }
- */
 
 }
