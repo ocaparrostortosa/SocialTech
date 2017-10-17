@@ -2,14 +2,17 @@
     <string name="app_name">AgendaTelefonica</string>
     <string name="Titulo">Agenda Telefónica</string>
     <string name="botonAlta">Alta</string>
-    <string name="editTextNombre">Nombre:</string>
-    <string name="editTextApellidos">Apellidos:</string>
-    <string name="editTextTelefono">Teléfono:</string>
+    <string name="editTextNombre">Nombre: </string>
+    <string name="editTextApellidos">Apellidos: </string>
+    <string name="editTextTelefono">Teléfono: </string>
     <string name="editTextEmail">Email: </string>
-    <string name="editTextSexo">Sexo:</string>
+    <string name="editTextSexo">Sexo: </string>
     <string name="botonBorrar">Borrar</string>
     <string name="tituloContactos">Contactos</string>
     <string name="numeroTotalContactos">Total: </string>
-    <string name="provincia">Provincia:</string>
+    <string name="provincia">Provincia: </string>
+    <string name="estudios">Títulos: </string>
+    <string name="edad">Edad: </string>
+    <string name="titulos">SMR,DAM,DAW,ASIR,Ingeniería,Grado,Otros </string>
 
 </resources>

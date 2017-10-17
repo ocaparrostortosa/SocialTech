@@ -10,13 +10,19 @@ public class Persona {
     private String telefono;
     private String sexo;
     private String email;
+    private String estudios;
+    private String provincia;
+    private int edad;
 
-    public Persona(String nombre, String apellidos, String telefono, String sexo, String email) {
+    public Persona(String nombre, String apellidos, String telefono, String sexo, String email, String estudios, String provincia, int edad) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
         this.sexo = sexo;
         this.email = email;
+        this.estudios = estudios;
+        this.provincia = provincia;
+        this.edad = edad;
     }
 
     public String getNombre() {
@@ -39,8 +45,20 @@ public class Persona {
         return email;
     }
 
+    public String getEstudios() {
+        return estudios;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
     @Override
     public String toString() {
-        return nombre+":"+apellidos+":"+telefono+":"+sexo+":"+email;
+        return nombre+":"+apellidos+":"+telefono+":"+sexo+":"+email+":"+estudios+":"+provincia+":"+edad;
     }
 }

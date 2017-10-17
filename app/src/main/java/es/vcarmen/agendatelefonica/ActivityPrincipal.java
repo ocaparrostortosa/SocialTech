@@ -6,19 +6,23 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
+import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class ActivityPrincipal extends AppCompatActivity {
 
     private EditText listaContactos;
+    private Controlador controlador;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-        new Controlador(this, new PersonaDAO());
+        controlador = new Controlador(this, new PersonaDAO());
     }
 
     public EditText getEditTextNombre() {
@@ -37,6 +41,17 @@ public class ActivityPrincipal extends AppCompatActivity {
         return (EditText) findViewById(R.id.emailContacto);
     }
 
+    public MultiAutoCompleteTextView getMACTextViewEstudios(){
+        return (MultiAutoCompleteTextView) findViewById(R.id.macEstudios);
+    }
+
+    public Spinner getSpinnerProvincias(){
+        return (Spinner) findViewById(R.id.spinnerProvincia);
+    }
+
+    public SeekBar getSeekbarEdad(){
+        return (SeekBar) findViewById(R.id.seekbarEdad);
+    }
 
     public RadioButton getEditTextSexo() {
         RadioButton RBHombre = (RadioButton) findViewById(R.id.radioButtonHombre);
@@ -69,4 +84,11 @@ public class ActivityPrincipal extends AppCompatActivity {
         return (ListView) findViewById(R.id.listaContactos);
     }
 
+    public Bundle getBundle(){ return this.getBundle(); }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        controlador.guardarBundle(outState);
+    }
 }
