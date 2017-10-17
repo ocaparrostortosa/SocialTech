@@ -1,10 +1,12 @@
 package es.vcarmen.agendatelefonica;
 
+import java.io.Serializable;
+
 /**
  * Created by matinal on 03/10/2017.
  */
 
-public class Persona {
+public class Persona implements Serializable{
     private String nombre;
     private String apellidos;
     private String telefono;

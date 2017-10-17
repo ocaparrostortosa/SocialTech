@@ -17,18 +17,48 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre" />
+        android:text="Nombre: " />
     <TextView
         android:padding="2dp"
         android:id="@+id/tvSurname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Apellidos" />
+        android:text="Apellidos: " />
     <TextView
         android:padding="2dp"
         android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email" />
+        android:text="Email: " />
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvTelefono"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Telefono: " />
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvSexo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sexo: " />
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvEstudios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Estudios: " />
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvProvincia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Provincia: " />
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvEdad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edad: " />
 
 </LinearLayout>

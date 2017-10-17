@@ -1,5 +1,6 @@
 package es.vcarmen.agendatelefonica;
 
+import android.content.Intent;
 import android.icu.util.Output;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,7 +47,9 @@ public class Controlador {
         activityPrincipal.getListaContactos().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Intent intent = new Intent(activityPrincipal.getApplicationContext(), ActivityInformacionPersona.class);
+                intent.putExtra("objetoPersona", listaPersonas.get(i));
+                activityPrincipal.startActivity(intent);
             }
         });
     }
