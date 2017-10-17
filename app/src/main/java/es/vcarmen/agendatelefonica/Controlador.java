@@ -2,7 +2,9 @@ package es.vcarmen.agendatelefonica;
 
 import android.icu.util.Output;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
@@ -21,7 +23,7 @@ import java.util.List;
 public class Controlador {
     private ActivityPrincipal activityPrincipal;
     private PersonaDAO personaDAO;
-    private List<Persona> listaPersonas = new ArrayList<Persona>();
+    private ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
 
     public Controlador(ActivityPrincipal activityPrincipal, PersonaDAO personaDAO) {
         this.activityPrincipal = activityPrincipal;
@@ -37,6 +39,16 @@ public class Controlador {
         accionSeekbarEdad();
         rellenarMACTextViewEstudios();
         rellenarSpinnerProvincias();
+        seleccionarUsuarioLista();
+    }
+
+    private void seleccionarUsuarioLista(){
+        activityPrincipal.getListaContactos().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
     }
 
     private void rellenarMACTextViewEstudios(){
@@ -102,7 +114,7 @@ public class Controlador {
             public void onClick(View view) {
                 recogerInformacionEditText();
                 //activityPrincipal.getListaContactos().setText(obtenerContactos());
-                activityPrincipal.getListaContactos().setAdapter(new ArrayAdapter<String>(activityPrincipal.getApplicationContext(), R.layout.listview_item, obtenerContactos()));
+                activityPrincipal.getListaContactos().setAdapter(new PersonaAdapter(activityPrincipal.getApplicationContext(), listaPersonas));
                 accionNumeroTotalContactos();
             }
         });
@@ -117,7 +129,7 @@ public class Controlador {
             }
         });
     }
-
+    /**
     private List<String> obtenerContactos() {
         List<String> lista = new ArrayList<String>();
 
@@ -129,6 +141,7 @@ public class Controlador {
 
         return lista;
     }
+     */
 
     private void restablecerRadioButton(){
         RadioButton RBHombre = (RadioButton) activityPrincipal.findViewById(R.id.radioButtonHombre);
@@ -165,11 +178,16 @@ public class Controlador {
             }
         });
     }
-    /**
+
     public void guardarBundle(Bundle outState){
-        outState.putSerializable("Lista", obtenerContactos());
+        outState.putSerializable("Lista", listaPersonas);
     }
-    */
+
+    public void guardarListaPersonas(Bundle getState){
+        listaPersonas = (ArrayList<Persona>) getState.getSerializable("Lista");
+        activityPrincipal.getListaContactos().setAdapter(new PersonaAdapter(activityPrincipal.getApplicationContext(), listaPersonas));
+    }
+
 
 
 }

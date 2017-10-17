@@ -23,6 +23,9 @@ public class ActivityPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
         controlador = new Controlador(this, new PersonaDAO());
+        if(savedInstanceState != null)
+            controlador.guardarListaPersonas(savedInstanceState);
+
     }
 
     public EditText getEditTextNombre() {
@@ -91,4 +94,5 @@ public class ActivityPrincipal extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         controlador.guardarBundle(outState);
     }
+
 }
