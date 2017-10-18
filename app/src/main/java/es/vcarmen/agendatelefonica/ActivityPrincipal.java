@@ -1,5 +1,8 @@
 package es.vcarmen.agendatelefonica;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -22,12 +25,31 @@ public class ActivityPrincipal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+
+        inicialize();
+        /**
         controlador = new Controlador(this, new PersonaDAO());
         if(savedInstanceState != null)
             controlador.guardarListaPersonas(savedInstanceState);
+         */
 
     }
 
+    private void inicialize(){
+        Fragmento1 fragmento1 = new Fragmento1();
+        Fragmento2 fragmento2 = new Fragmento2();
+        Fragmento3 fragmento3 = new Fragmento3();
+
+        FragmentManager FM = getFragmentManager();
+        FragmentTransaction FT = FM.beginTransaction();
+
+        FT.add(R.id.fragmento1, fragmento1);
+        FT.add(R.id.fragmento2, fragmento2);
+        FT.add(R.id.fragmento3, fragmento3);
+
+        FT.commit();
+    }
+/**
     public EditText getEditTextNombre() {
         return (EditText) findViewById(R.id.nombreContacto);
     }
@@ -94,5 +116,6 @@ public class ActivityPrincipal extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         controlador.guardarBundle(outState);
     }
+    */
 
 }

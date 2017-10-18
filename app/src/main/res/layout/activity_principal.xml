@@ -7,11 +7,47 @@
     android:orientation="vertical"
     tools:context="es.vcarmen.agendatelefonica.ActivityPrincipal">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
 
+        <fragment
+            android:name="es.vcarmen.agendatelefonica.Fragmento1"
+            android:id="@+id/fragmento1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+
+                <fragment
+                    android:name="es.vcarmen.agendatelefonica.Fragmento2"
+                    android:id="@+id/fragmento2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
+
+        </ScrollView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+
+                <fragment
+                    android:name="es.vcarmen.agendatelefonica.Fragmento3"
+                    android:id="@+id/fragmento3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
+
+        </ScrollView>
+<!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -290,7 +326,6 @@
                 />
 
         </LinearLayout>
-
-    </ScrollView>
-
+-->
 </LinearLayout>
+

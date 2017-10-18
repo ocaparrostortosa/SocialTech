@@ -34,6 +34,7 @@ public class Controlador {
     }
 
     private void inicialize(){
+        /**
         accionBotonAlta();
         accionBotonBorrar();
         accionNumeroTotalContactos();
@@ -41,8 +42,9 @@ public class Controlador {
         rellenarMACTextViewEstudios();
         rellenarSpinnerProvincias();
         seleccionarUsuarioLista();
+         */
     }
-
+/**
     private void seleccionarUsuarioLista(){
         activityPrincipal.getListaContactos().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -144,7 +146,7 @@ public class Controlador {
 
         return lista;
     }
-     */
+
 
     private void restablecerRadioButton(){
         RadioButton RBHombre = (RadioButton) activityPrincipal.findViewById(R.id.radioButtonHombre);
@@ -191,6 +193,6 @@ public class Controlador {
         activityPrincipal.getListaContactos().setAdapter(new PersonaAdapter(activityPrincipal.getApplicationContext(), listaPersonas));
     }
 
-
+*/
 
 }
