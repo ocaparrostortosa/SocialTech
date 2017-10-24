@@ -20,9 +20,9 @@ import android.widget.TextView;
 
 public class ActivityPrincipal extends AppCompatActivity {
 
+    private static Fragmento1 fragmento1;
     private EditText listaContactos;
     private Controlador controlador;
-    private Fragmento1 fragmento1;
     private Fragmento2 fragmento2;
     private Fragmento3 fragmento3;
 
@@ -45,19 +45,16 @@ public class ActivityPrincipal extends AppCompatActivity {
     private void inicialize(){
         fragmento1 = new Fragmento1();
         reemplazarFragmentoPrincipal(fragmento1);
-        accionFragmento1();
     }
 
-    private void accionFragmento1(){
-        Activity activity = fragmento1.getActivityFragmento1();
-        System.out.println(activity + "..................");
-        Button boton1 = (Button) activity.findViewById(R.id.botonNuevoContacto);
-        boton1.setOnClickListener(new View.OnClickListener() {
+    public static void accionBotonNuevoContacto(){
+        View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //Accion boton nuevo contacto
             }
-        });
+        };
+        fragmento1.setOnClickListener(onClickListener);
     }
 
     private void reemplazarFragmentoPrincipal(Fragment fragmento){
