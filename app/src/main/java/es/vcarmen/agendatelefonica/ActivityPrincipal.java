@@ -1,10 +1,13 @@
 package es.vcarmen.agendatelefonica;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -19,6 +22,10 @@ public class ActivityPrincipal extends AppCompatActivity {
 
     private EditText listaContactos;
     private Controlador controlador;
+    private Fragmento1 fragmento1;
+    private Fragmento2 fragmento2;
+    private Fragmento3 fragmento3;
+
 
 
     @Override
@@ -36,19 +43,27 @@ public class ActivityPrincipal extends AppCompatActivity {
     }
 
     private void inicialize(){
-        Fragmento1 fragmento1 = new Fragmento1();
-        Fragmento2 fragmento2 = new Fragmento2();
-        Fragmento3 fragmento3 = new Fragmento3();
-
-        FragmentManager FM = getFragmentManager();
-        FragmentTransaction FT = FM.beginTransaction();
-
-        FT.add(R.id.fragmento1, fragmento1);
-        FT.add(R.id.fragmento2, fragmento2);
-        FT.add(R.id.fragmento3, fragmento3);
-
-        FT.commit();
+        fragmento1 = new Fragmento1();
+        reemplazarFragmentoPrincipal(fragmento1);
+        accionFragmento1();
     }
+
+    private void accionFragmento1(){
+        Activity activity = fragmento1.getActivityFragmento1();
+        System.out.println(activity + "..................");
+        Button boton1 = (Button) activity.findViewById(R.id.botonNuevoContacto);
+        boton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
+
+    private void reemplazarFragmentoPrincipal(Fragment fragmento){
+        getFragmentManager().beginTransaction().add(R.id.contenedor, fragmento).commit();
+    }
+
 /**
     public EditText getEditTextNombre() {
         return (EditText) findViewById(R.id.nombreContacto);
