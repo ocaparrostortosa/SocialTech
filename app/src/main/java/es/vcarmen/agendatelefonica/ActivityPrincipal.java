@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 public class ActivityPrincipal extends AppCompatActivity {
 
-    private static Fragmento1 fragmento1;
+    private Fragmento1 fragmento1;
     private EditText listaContactos;
     private Controlador controlador;
     private Fragmento2 fragmento2;
@@ -32,7 +32,6 @@ public class ActivityPrincipal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-
         inicialize();
         /**
         controlador = new Controlador(this, new PersonaDAO());
@@ -44,22 +43,25 @@ public class ActivityPrincipal extends AppCompatActivity {
 
     private void inicialize(){
         fragmento1 = new Fragmento1();
-        reemplazarFragmentoPrincipal(fragmento1);
+        getFragmentManager().beginTransaction().add(R.id.contenedor, fragmento1).commit();
     }
 
-    public static void accionBotonNuevoContacto(){
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Accion boton nuevo contacto
-            }
-        };
-        fragmento1.setOnClickListener(onClickListener);
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
-    private void reemplazarFragmentoPrincipal(Fragment fragmento){
-        getFragmentManager().beginTransaction().add(R.id.contenedor, fragmento).commit();
+    public void reemplazarFragmentoPrincipal(Fragment fragmento){
+        getFragmentManager().beginTransaction().replace(R.id.contenedor, fragmento).commit();
     }
+
+    public void accionBotonAlta() {
+        //recogerInformacionEditText();
+        //this.getListaContactos().setAdapter(new PersonaAdapter(this.getApplicationContext(), listaPersonas));
+        //accionNumeroTotalContactos();
+
+    }
+
 
 /**
     public EditText getEditTextNombre() {
