@@ -89,8 +89,7 @@ public class Fragmento2 extends DialogFragment {
 
     private String obtenerInformacionMACTextViewEstudios(){
         String estudios = macEstudiosContacto.getText().toString();
-        String remplazado = estudios.replace(",","").trim().replace(" ",",");
-        return remplazado;
+        return estudios.replace(",","").trim().replace(" ",",");
     }
 
     private String obtenerInformacionSpinnerProvincia(){
