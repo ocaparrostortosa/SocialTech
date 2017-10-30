@@ -14,5 +14,7 @@
     <string name="estudios">Títulos: </string>
     <string name="edad">Edad: </string>
     <string name="titulos">SMR,DAM,DAW,ASIR,Ingeniería,Grado,Otros </string>
+    <string name="tituloMenuNuevoContacto">Nuevo contacto</string>
+    <string name="tituloMenuListaContactos">Lista de contactos</string>
 
 </resources>

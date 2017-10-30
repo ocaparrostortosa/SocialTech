@@ -7,6 +7,8 @@ import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -132,4 +134,26 @@ public class ActivityPrincipal extends AppCompatActivity {
     }
     */
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_opciones, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int idSeleccionado = item.getItemId();
+        switch (idSeleccionado){
+            case R.id.menuOpcionNuevoContacto:
+                reemplazarFragmentoPrincipal(new Fragmento2());
+                return true;
+            case R.id.menuOpcionListaContactos:
+                reemplazarFragmentoPrincipal(new Fragmento1());
+                return true;
+            default:
+                super.onOptionsItemSelected(item);
+        }
+
+        return true;
+    }
 }
