@@ -21,10 +21,12 @@ import android.widget.TextView;
 public class ActivityPrincipal extends AppCompatActivity {
 
     private Fragmento1 fragmento1;
+    /**
     private EditText listaContactos;
     private Controlador controlador;
     private Fragmento2 fragmento2;
     private Fragmento3 fragmento3;
+     */
 
 
 
@@ -54,13 +56,13 @@ public class ActivityPrincipal extends AppCompatActivity {
     public void reemplazarFragmentoPrincipal(Fragment fragmento){
         getFragmentManager().beginTransaction().replace(R.id.contenedor, fragmento).commit();
     }
-
+    /**
     public void accionBotonAlta() {
         //recogerInformacionEditText();
         //this.getListaContactos().setAdapter(new PersonaAdapter(this.getApplicationContext(), listaPersonas));
         //accionNumeroTotalContactos();
 
-    }
+    }*/
 
 
 /**

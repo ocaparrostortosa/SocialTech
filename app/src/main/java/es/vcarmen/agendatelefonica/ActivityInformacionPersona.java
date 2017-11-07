@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by matinal on 17/10/2017.
  */
@@ -12,26 +15,26 @@ import android.widget.TextView;
 public class ActivityInformacionPersona extends AppCompatActivity {
 
     private Persona persona;
+    @BindView(R.id.tvName) TextView nombre;
+    @BindView(R.id.tvSurname) TextView apellidos;
+    @BindView(R.id.tvEmail) TextView email;
+    @BindView(R.id.tvSexo) TextView sexo;
+    @BindView(R.id.tvTelefono) TextView telefono;
+    @BindView(R.id.tvEstudios) TextView estudios;
+    @BindView(R.id.tvProvincia) TextView provincia;
+    @BindView(R.id.tvEdad) TextView edad;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_information);
+        ButterKnife.bind(this);
         inicialize();
 
     }
 
     private void inicialize(){
         persona = (Persona) getIntent().getExtras().getSerializable("objetoPersona");
-
-        TextView nombre = (TextView) findViewById(R.id.tvName);
-        TextView apellidos = (TextView) findViewById(R.id.tvSurname);
-        TextView email = (TextView) findViewById(R.id.tvEmail);
-        TextView sexo = (TextView) findViewById(R.id.tvSexo);
-        TextView telefono = (TextView) findViewById(R.id.tvTelefono);
-        TextView estudios = (TextView) findViewById(R.id.tvEstudios);
-        TextView provincia = (TextView) findViewById(R.id.tvProvincia);
-        TextView edad = (TextView) findViewById(R.id.tvEdad);
 
         nombre.append(persona.getNombre()+"");
         apellidos.append(persona.getApellidos()+"");

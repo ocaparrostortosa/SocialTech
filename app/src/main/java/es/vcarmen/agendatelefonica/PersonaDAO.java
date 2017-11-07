@@ -1,5 +1,6 @@
 package es.vcarmen.agendatelefonica;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +8,8 @@ import java.util.List;
  * Created by matinal on 03/10/2017.
  */
 
-public class PersonaDAO {
-    private List<Persona> listaPersonas = new ArrayList<Persona>();
+public class PersonaDAO implements Serializable {
+    private ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
 
     public void addPersona(Persona persona){
         listaPersonas.add(persona);
@@ -18,7 +19,7 @@ public class PersonaDAO {
         listaPersonas.remove(persona);
     }
 
-    public List<Persona> mostrarPersonas(){
+    public ArrayList<Persona> mostrarPersonas(){
         return listaPersonas;
     }
 

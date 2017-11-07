@@ -15,8 +15,9 @@ public class Persona implements Serializable{
     private String estudios;
     private String provincia;
     private int edad;
+    private int imagen;
 
-    public Persona(String nombre, String apellidos, String telefono, String sexo, String email, String estudios, String provincia, int edad) {
+    public Persona(String nombre, String apellidos, String telefono, String sexo, String email, String estudios, String provincia, int edad, int imagen) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
@@ -25,6 +26,7 @@ public class Persona implements Serializable{
         this.estudios = estudios;
         this.provincia = provincia;
         this.edad = edad;
+        this.imagen = imagen;
     }
 
     public String getNombre() {
@@ -57,6 +59,14 @@ public class Persona implements Serializable{
 
     public int getEdad() {
         return edad;
+    }
+
+    public int getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(int imagen) {
+        this.imagen = imagen;
     }
 
     @Override

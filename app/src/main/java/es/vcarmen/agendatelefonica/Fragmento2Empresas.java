@@ -1,7 +1,6 @@
 package es.vcarmen.agendatelefonica;
 
 import android.app.DialogFragment;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -17,14 +16,11 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by OSCAR on 18/10/2017.
  */
 
-public class Fragmento2 extends DialogFragment {
+public class Fragmento2Empresas extends DialogFragment {
 
     private Button botonAlta;
     private Button botonBorrar;
@@ -59,7 +55,7 @@ public class Fragmento2 extends DialogFragment {
         initialize();
     }
 
-    public Fragmento2(PersonaDAO personaDAO){
+    public Fragmento2Empresas(PersonaDAO personaDAO){
         this.personaDAO = personaDAO;
     }
 

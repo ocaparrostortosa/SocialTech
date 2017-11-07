@@ -1,50 +1,42 @@
 package es.vcarmen.agendatelefonica;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
-import butterknife.OnItemLongClick;
-import butterknife.OnLongClick;
 
 /**
  * Created by OSCAR on 18/10/2017.
  */
 
-public class Fragmento1 extends Fragment {
+public class Fragmento1Empresas extends Fragment {
 
     @BindView(R.id.listaContactosFragmento) ListView lvListaContactos;
     @BindView(R.id.botonNuevoContacto) Button boton;
     private Activity activity;
     private PersonaDAO personaDAO = new PersonaDAO();
     private ArrayList<Persona> listaPersonas;
-    private AlertDialog.Builder dialogo;
-    private View view;
 
-    public Fragmento1(){}
+    public Fragmento1Empresas(){}
 
-    public Fragmento1(PersonaDAO personaDAO){
+    public Fragmento1Empresas(PersonaDAO personaDAO){
         this.personaDAO = personaDAO;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.layout_fragmento1, container, false);
+        View view = inflater.inflate(R.layout.layout_fragmento1, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -66,28 +58,6 @@ public class Fragmento1 extends Fragment {
         ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3(listaPersonas.get(posicion)));
     }
 
-    @OnItemLongClick(R.id.listaContactosFragmento)
-    public boolean accionBorrarContacto(int posicion){
-        listaPersonas = personaDAO.mostrarPersonas();
-        final int numeroEnLista = posicion;
-        dialogo = new AlertDialog.Builder(view.getContext());
-        dialogo.setTitle("¿Seguro que quiere eliminar el contacto '" + listaPersonas.get(posicion).getNombre() + "'?");
-        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                personaDAO.removePersona(listaPersonas.get(numeroEnLista));
-                ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1(personaDAO));
-            }
-        });
-        dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        dialogo.show();
-        return true;
-    }
 
 
     private void initialize(){
