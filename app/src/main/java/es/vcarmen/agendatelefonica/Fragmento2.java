@@ -59,6 +59,8 @@ public class Fragmento2 extends DialogFragment {
         initialize();
     }
 
+    public Fragmento2(){}
+
     public Fragmento2(PersonaDAO personaDAO){
         this.personaDAO = personaDAO;
     }
