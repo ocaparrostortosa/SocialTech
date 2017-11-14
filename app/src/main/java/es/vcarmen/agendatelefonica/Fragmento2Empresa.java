@@ -20,7 +20,7 @@ import android.widget.TextView;
  * Created by OSCAR on 18/10/2017.
  */
 
-public class Fragmento2Empresas extends DialogFragment {
+public class Fragmento2Empresa extends DialogFragment {
 
     private Button botonAlta;
     private Button botonBorrar;
@@ -55,7 +55,9 @@ public class Fragmento2Empresas extends DialogFragment {
         initialize();
     }
 
-    public Fragmento2Empresas(PersonaDAO personaDAO){
+    public Fragmento2Empresa(){}
+
+    public Fragmento2Empresa(PersonaDAO personaDAO){
         this.personaDAO = personaDAO;
     }
 
@@ -101,8 +103,7 @@ public class Fragmento2Empresas extends DialogFragment {
 
     private String obtenerInformacionMACTextViewEstudios(){
         String estudios = macEstudiosContacto.getText().toString();
-        String remplazado = estudios.replace(",","").trim().replace(" ",",");
-        return remplazado;
+        return estudios.replace(",","").trim().replace(" ",",");
     }
 
     private String obtenerInformacionSpinnerProvincia(){

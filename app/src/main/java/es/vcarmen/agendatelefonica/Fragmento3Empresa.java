@@ -12,13 +12,13 @@ import android.widget.TextView;
  * Created by OSCAR on 18/10/2017.
  */
 
-public class Fragmento3Empresas extends Fragment {
+public class Fragmento3Empresa extends Fragment {
 
     private Persona personaAMostrar;
 
-    public Fragmento3Empresas(){}
+    public Fragmento3Empresa(){}
 
-    public Fragmento3Empresas(Persona persona){
+    public Fragmento3Empresa(Persona persona){
         this.personaAMostrar = persona;
     }
 

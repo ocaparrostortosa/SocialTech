@@ -14,7 +14,13 @@
     <string name="estudios">Títulos: </string>
     <string name="edad">Edad: </string>
     <string name="titulos">SMR,DAM,DAW,ASIR,Ingeniería,Grado,Otros </string>
+    <string name="macContactos">Inserte el nombre de un contacto asociado... </string>
     <string name="tituloMenuNuevoContacto">Nuevo contacto</string>
     <string name="tituloMenuListaContactos">Lista de contactos</string>
+    <string name="editTextDireccion">Direccion:</string>
+    <string name="editTextLocalidad">Localidad:</string>
+    <string name="editTextProvincia">Provincia:</string>
+    <string name="editTextObservaciones">Observaciones:</string>
+    <string name="editTextContactoAsociado">Contacto asociado:</string>
 
 </resources>

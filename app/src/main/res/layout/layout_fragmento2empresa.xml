@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/editTextNombre"
+                android:textColor="@color/black"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                />
+
+            <EditText
+                android:id="@+id/nombreEmpresa"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:maxLength="14"
+                android:maxLines="1"
+                android:inputType="text"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/editTextDireccion"
+                android:textColor="@color/black"
+                android:paddingLeft="5dp"
+                />
+
+            <EditText
+                android:id="@+id/direccionEmpresa"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:maxLength="34"
+                android:maxLines="1"
+                android:inputType="text"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/editTextProvincia"
+                android:textColor="@color/black"
+                android:paddingLeft="5dp"
+                />
+
+            <Spinner
+                android:id="@+id/spinnerProvincia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/editTextLocalidad"
+                android:textColor="@color/black"
+                android:paddingLeft="5dp"
+                />
+
+            <Spinner
+                android:id="@+id/spinnerLocalidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/editTextTelefono"
+                android:textColor="@color/black"
+                android:paddingLeft="5dp"
+                />
+
+            <EditText
+                android:id="@+id/telefonoContacto"
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:maxLength="9"
+                android:inputType="phone"
+                android:maxLines="1"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/editTextEmail"
+                android:textColor="@color/black"
+                android:paddingLeft="5dp"
+                />
+
+            <EditText
+                android:id="@+id/emailContacto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="34"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/editTextContactoAsociado"
+                android:textColor="@color/black"
+                android:paddingLeft="5dp"
+                />
+
+            <AutoCompleteTextView
+                android:id="@+id/macContactos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/macContactos"
+                android:textSize="14dp"
+                android:textColor="@color/colorPrimary"
+                android:completionThreshold="1"
+                ></AutoCompleteTextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/editTextObservaciones"
+                android:textColor="@color/black"
+                android:paddingLeft="5dp"
+                />
+
+            <TextView
+                android:id="@+id/observacionesEmpresa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:maxLines="4"
+                android:background="@color/lightGrey"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/botonAlta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/botonAlta" />
+
+            <Button
+                android:id="@+id/botonBorrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/botonBorrar" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
