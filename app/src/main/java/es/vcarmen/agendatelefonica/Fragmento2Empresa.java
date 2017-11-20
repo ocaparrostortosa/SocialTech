@@ -33,20 +33,20 @@ public class Fragmento2Empresa extends DialogFragment {
     private Spinner spProvinciaContacto;
     private SeekBar skEdadContacto;
     private TextView tvEdad;
-    private PersonaDAO personaDAO = new PersonaDAO();
+    private EmpresaDAO empresaDAO = new EmpresaDAO();
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("personaDAO", personaDAO);
+        outState.putSerializable("empresaDAO", empresaDAO);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         if(savedInstanceState != null){
-            personaDAO = (PersonaDAO) savedInstanceState.getSerializable("personaDAO");
+            empresaDAO = (EmpresaDAO) savedInstanceState.getSerializable("empresaDAO");
         }
-        return inflater.inflate(R.layout.layout_fragmento2, container, false);
+        return inflater.inflate(R.layout.layout_fragmento2empresa, container, false);
     }
 
     @Override
@@ -57,8 +57,8 @@ public class Fragmento2Empresa extends DialogFragment {
 
     public Fragmento2Empresa(){}
 
-    public Fragmento2Empresa(PersonaDAO personaDAO){
-        this.personaDAO = personaDAO;
+    public Fragmento2Empresa(EmpresaDAO empresaDAO){
+        this.empresaDAO = empresaDAO;
     }
 
     private void initialize(){
@@ -97,7 +97,7 @@ public class Fragmento2Empresa extends DialogFragment {
         int edad = obtenerInformacionSeekbarEdad();
         int foto = obtenerImagenContacto(sexoContacto);
 
-        personaDAO.addPersona(new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto));
+        empresaDAO.addPersona(new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto));
         cambiarDeFragmentoPasandoLista(personaDAO);
     }
 

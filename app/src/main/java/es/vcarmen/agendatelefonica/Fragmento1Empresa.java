@@ -28,20 +28,20 @@ public class Fragmento1Empresa extends Fragment {
     @BindView(R.id.listaContactosFragmento) ListView lvListaContactos;
     @BindView(R.id.botonNuevoContacto) Button boton;
     private Activity activity;
-    private PersonaDAO personaDAO = new PersonaDAO();
-    private ArrayList<Persona> listaPersonas;
+    private EmpresaDAO empresaDAO = new EmpresaDAO();
+    private ArrayList<Empresa> listaEmpresas;
     private AlertDialog.Builder dialogo;
     private View view;
 
     public Fragmento1Empresa(){}
 
-    public Fragmento1Empresa(PersonaDAO personaDAO){
-        this.personaDAO = personaDAO;
+    public Fragmento1Empresa(EmpresaDAO empresaDAO){
+        this.empresaDAO = empresaDAO;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.layout_fragmento1, container, false);
+        view = inflater.inflate(R.layout.layout_fragmento1empresa, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -54,26 +54,26 @@ public class Fragmento1Empresa extends Fragment {
 
     @OnClick(R.id.botonNuevoContacto)
     public void accionBoton(){
-        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento2(personaDAO));
+        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento2Empresa(empresaDAO));
     }
 
     @OnItemClick(R.id.listaContactosFragmento)
     public void accionLista(int posicion){
-        listaPersonas = personaDAO.mostrarPersonas();
-        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3(listaPersonas.get(posicion)));
+        listaEmpresas = empresaDAO.mostrarPersonas();
+        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3(listaEmpresas.get(posicion)));
     }
 
     @OnItemLongClick(R.id.listaContactosFragmento)
     public boolean accionBorrarContacto(int posicion){
-        listaPersonas = personaDAO.mostrarPersonas();
+        listaEmpresas = empresaDAO.mostrarPersonas();
         final int numeroEnLista = posicion;
         dialogo = new AlertDialog.Builder(view.getContext());
-        dialogo.setTitle("¿Seguro que quiere eliminar el contacto '" + listaPersonas.get(posicion).getNombre() + "'?");
+        dialogo.setTitle("¿Seguro que quiere eliminar el contacto '" + listaEmpresas.get(posicion).getNombre() + "'?");
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                personaDAO.removePersona(listaPersonas.get(numeroEnLista));
-                ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1Empresa(personaDAO));
+                empresaDAO.removePersona(listaEmpresas.get(numeroEnLista));
+                ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1Empresa(empresaDAO));
             }
         });
         dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -88,7 +88,7 @@ public class Fragmento1Empresa extends Fragment {
 
 
     private void initialize(){
-        lvListaContactos.setAdapter(new PersonaAdapter(getActivity().getApplicationContext(), (ArrayList<Persona>) personaDAO.mostrarPersonas()));
+        lvListaContactos.setAdapter(new PersonaAdapter(getActivity().getApplicationContext(), (ArrayList<Persona>) empresaDAO.mostrarPersonas()));
     }
 
 

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "96244489229",
+    "firebase_url": "https://socialtech-a46e5.firebaseio.com",
+    "project_id": "socialtech-a46e5",
+    "storage_bucket": "socialtech-a46e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:96244489229:android:7a8804f0665218bf",
+        "android_client_info": {
+          "package_name": "es.vcarmen.agendatelefonica"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "96244489229-325k49f0c27e4bils646qjrmjfbdlrbb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "es.vcarmen.agendatelefonica",
+            "certificate_hash": "ead9558b8499771b7704d7b30eab37b39f3e1083"
+          }
+        },
+        {
+          "client_id": "96244489229-2l6omj883cubg9m71qhca909k0gph14c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtxpvHfD-4oxzAF9SQPtWIUjWKwu1YaVI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "96244489229-2l6omj883cubg9m71qhca909k0gph14c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
