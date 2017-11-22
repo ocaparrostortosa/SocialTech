@@ -25,8 +25,8 @@ import butterknife.OnItemLongClick;
 
 public class Fragmento1Empresa extends Fragment {
 
-    @BindView(R.id.listaContactosFragmento) ListView lvListaContactos;
-    @BindView(R.id.botonNuevoContacto) Button boton;
+    @BindView(R.id.listaEmpresasFragmento) ListView lvListaContactos;
+    @BindView(R.id.botonNuevaEmpresa) Button boton;
     private Activity activity;
     private EmpresaDAO empresaDAO = new EmpresaDAO();
     private ArrayList<Empresa> listaEmpresas;
@@ -49,14 +49,14 @@ public class Fragmento1Empresa extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        initialize();
+        //initialize();
     }
 
-    @OnClick(R.id.botonNuevoContacto)
+    @OnClick(R.id.botonNuevaEmpresa)
     public void accionBoton(){
         ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento2Empresa(empresaDAO));
     }
-
+/**
     @OnItemClick(R.id.listaContactosFragmento)
     public void accionLista(int posicion){
         listaEmpresas = empresaDAO.mostrarPersonas();
@@ -91,5 +91,5 @@ public class Fragmento1Empresa extends Fragment {
         lvListaContactos.setAdapter(new PersonaAdapter(getActivity().getApplicationContext(), (ArrayList<Persona>) empresaDAO.mostrarPersonas()));
     }
 
-
+*/
 }

@@ -97,8 +97,8 @@ public class Fragmento2Empresa extends DialogFragment {
         int edad = obtenerInformacionSeekbarEdad();
         int foto = obtenerImagenContacto(sexoContacto);
 
-        empresaDAO.addPersona(new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto));
-        cambiarDeFragmentoPasandoLista(personaDAO);
+        //empresaDAO.addPersona(new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto));
+        //cambiarDeFragmentoPasandoLista(personaDAO);
     }
 
     private String obtenerInformacionMACTextViewEstudios(){

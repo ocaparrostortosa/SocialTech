@@ -46,8 +46,9 @@ public class ActivityPrincipal extends AppCompatActivity {
     }
 
     private void inicialize(){
-        fragmento1 = new Fragmento1();
-        getFragmentManager().beginTransaction().add(R.id.contenedor, fragmento1).commit();
+        /*fragmento1 = new Fragmento1();
+        getFragmentManager().beginTransaction().add(R.id.contenedor, fragmento1).commit();*/
+        getFragmentManager().beginTransaction().add(R.id.contenedor, new Fragmento1Empresa()).commit();
     }
 
     @Override
