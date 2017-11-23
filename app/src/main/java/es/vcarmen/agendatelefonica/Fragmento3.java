@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -44,6 +45,7 @@ public class Fragmento3 extends Fragment {
         TextView estudios = (TextView) getView().findViewById(R.id.tvEstudios);
         TextView provincia = (TextView) getView().findViewById(R.id.tvProvincia);
         TextView edad = (TextView) getView().findViewById(R.id.tvEdad);
+        ImageView imagen = getView().findViewById(R.id.imagenContacto);
 
         nombre.append(personaAMostrar.getNombre()+"");
         apellidos.append(personaAMostrar.getApellidos()+"");
@@ -53,5 +55,6 @@ public class Fragmento3 extends Fragment {
         estudios.append(personaAMostrar.getEstudios()+"");
         provincia.append(personaAMostrar.getProvincia()+"");
         edad.append(personaAMostrar.getEdad()+"");
+        imagen.setImageResource(personaAMostrar.getImagen());
     }
 }

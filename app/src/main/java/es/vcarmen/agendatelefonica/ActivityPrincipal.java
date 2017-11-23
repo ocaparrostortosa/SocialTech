@@ -46,9 +46,9 @@ public class ActivityPrincipal extends AppCompatActivity {
     }
 
     private void inicialize(){
-        /*fragmento1 = new Fragmento1();
-        getFragmentManager().beginTransaction().add(R.id.contenedor, fragmento1).commit();*/
-        getFragmentManager().beginTransaction().add(R.id.contenedor, new Fragmento1Empresa()).commit();
+        fragmento1 = new Fragmento1();
+        getFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).add(R.id.contenedor, fragmento1).commit();
+        //getFragmentManager().beginTransaction().add(R.id.contenedor, new Fragmento1Empresa()).commit();
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ActivityPrincipal extends AppCompatActivity {
     }
 
     public void reemplazarFragmentoPrincipal(Fragment fragmento){
-        getFragmentManager().beginTransaction().replace(R.id.contenedor, fragmento).commit();
+        getFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).replace(R.id.contenedor, fragmento).commit();
     }
     /**
     public void accionBotonAlta() {

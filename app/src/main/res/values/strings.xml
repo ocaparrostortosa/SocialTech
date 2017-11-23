@@ -22,5 +22,11 @@
     <string name="editTextProvincia">Provincia:</string>
     <string name="editTextObservaciones">Observaciones:</string>
     <string name="editTextContactoAsociado">Contacto asociado:</string>
+    <string name="title_activity_principal">ActivityPrincipal</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>

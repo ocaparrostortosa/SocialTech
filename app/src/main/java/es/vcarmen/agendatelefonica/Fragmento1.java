@@ -5,12 +5,14 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,8 @@ import butterknife.OnLongClick;
 public class Fragmento1 extends Fragment {
 
     @BindView(R.id.listaContactosFragmento) ListView lvListaContactos;
-    @BindView(R.id.botonNuevoContacto) Button boton;
+    @BindView(R.id.botonNuevoContacto)
+    FloatingActionButton boton;
     private Activity activity;
     private PersonaDAO personaDAO = new PersonaDAO();
     private ArrayList<Persona> listaPersonas;
@@ -47,6 +50,7 @@ public class Fragmento1 extends Fragment {
         view = inflater.inflate(R.layout.layout_fragmento1, container, false);
         ButterKnife.bind(this, view);
         return view;
+
     }
 
     @Override
@@ -71,6 +75,7 @@ public class Fragmento1 extends Fragment {
         listaPersonas = personaDAO.mostrarPersonas();
         final int numeroEnLista = posicion;
         dialogo = new AlertDialog.Builder(view.getContext());
+        //dialogo.setView(R.layout.alert_dialog);
         dialogo.setTitle("¿Seguro que quiere eliminar el contacto '" + listaPersonas.get(posicion).getNombre() + "'?");
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
@@ -91,6 +96,11 @@ public class Fragmento1 extends Fragment {
 
 
     private void initialize(){
+        listaPersonas = personaDAO.mostrarPersonas();
+        if(!listaPersonas.isEmpty()){
+            lvListaContactos.setVisibility(View.VISIBLE);
+        }
+
         lvListaContactos.setAdapter(new PersonaAdapter(getActivity().getApplicationContext(), (ArrayList<Persona>) personaDAO.mostrarPersonas()));
     }
 

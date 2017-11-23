@@ -176,15 +176,16 @@ public class Fragmento2 extends DialogFragment {
     }
 
     private int obtenerImagenContacto(String sexoContacto){
-        int imagen = R.drawable.user_icon5;
+        int imagen = R.drawable.user_icon8;
         switch (sexoContacto){
             case "Hombre":
-                imagen = R.drawable.user_icon3;
+                imagen = R.drawable.user_icon6;
                 break;
             case "Mujer":
-                imagen = R.drawable.user_icon4;
+                imagen = R.drawable.user_icon7;
                 break;
             case "Otro":
+                imagen = R.drawable.user_icon8;
                 break;
             default:
                 break;
