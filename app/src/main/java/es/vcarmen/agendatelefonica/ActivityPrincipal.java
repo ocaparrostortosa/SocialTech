@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 public class ActivityPrincipal extends AppCompatActivity {
 
-    private Fragmento1 fragmento1;
+    private Fragment fragmento1;
     /**
     private EditText listaContactos;
     private Controlador controlador;
@@ -46,7 +46,7 @@ public class ActivityPrincipal extends AppCompatActivity {
     }
 
     private void inicialize(){
-        fragmento1 = new Fragmento1();
+        fragmento1 = new FragmentoLogin();
         getFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).add(R.id.contenedor, fragmento1).commit();
         //getFragmentManager().beginTransaction().add(R.id.contenedor, new Fragmento1Empresa()).commit();
     }
