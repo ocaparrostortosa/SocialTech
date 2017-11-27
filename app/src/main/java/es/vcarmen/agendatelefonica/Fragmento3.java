@@ -1,8 +1,11 @@
 package es.vcarmen.agendatelefonica;
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import java.util.List;
 public class Fragmento3 extends Fragment {
 
     private Persona personaAMostrar;
+    private View vista;
 
     public Fragmento3(){}
 
@@ -27,7 +31,8 @@ public class Fragmento3 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.layout_fragmento3, container, false);
+        vista = inflater.inflate(R.layout.layout_fragmento3, container, false);
+        return vista;
     }
 
     @Override
@@ -56,5 +61,29 @@ public class Fragmento3 extends Fragment {
         provincia.append(personaAMostrar.getProvincia()+"");
         edad.append(personaAMostrar.getEdad()+"");
         imagen.setImageResource(personaAMostrar.getImagen());
+
+        accionImagenContacto(imagen, personaAMostrar.getTelefono());
+    }
+
+    private void accionImagenContacto(ImageView imagen, final String telefono){
+        imagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                accionSnackBarImagenContacto(telefono);
+            }
+        });
+    }
+
+    private void accionSnackBarImagenContacto(final String telefono){
+        Snackbar snackbar = Snackbar.make(vista, "¿LLAMAR A: " + telefono, Snackbar.LENGTH_LONG);
+        snackbar.setAction("ACEPTAR", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:" + telefono));
+                startActivity(callIntent);
+            }
+        });
+        snackbar.show();
     }
 }

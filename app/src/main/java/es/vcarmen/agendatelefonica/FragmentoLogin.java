@@ -6,10 +6,13 @@ import android.app.Fragment;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -30,6 +33,9 @@ public class FragmentoLogin extends Fragment {
     private ArrayList<Persona> listaPersonas;
     private AlertDialog.Builder dialogo;
     private View view;
+    private Button botonLogin;
+    private CardView cardView;
+    private ProgressBar barraProgreso;
 
     public FragmentoLogin(){}
 
@@ -56,6 +62,22 @@ public class FragmentoLogin extends Fragment {
         Typeface tpf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Login.ttf");
         textoLogin.setTypeface(tpf);
 
+        barraProgreso = view.findViewById(R.id.progressBar);
+        cardView = view.findViewById(R.id.cardViewLogin);
+        botonLogin = view.findViewById(R.id.botonLogin);
+        botonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                accionBotonLogin();
+            }
+        });
+    }
+
+    private void accionBotonLogin(){
+        barraProgreso.setVisibility(View.VISIBLE);
+        cardView.setEnabled(false);
+
+        //((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1());
     }
 
 }

@@ -47,8 +47,8 @@ public class Fragmento1 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.layout_login, container, false);
-//        ButterKnife.bind(this, view);
+        view = inflater.inflate(R.layout.layout_fragmento1, container, false);
+        ButterKnife.bind(this, view);
         return view;
 
     }
@@ -56,9 +56,9 @@ public class Fragmento1 extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //initialize();
+        initialize();
     }
-/**
+
     @OnClick(R.id.botonNuevoContacto)
     public void accionBoton(){
         ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento2(personaDAO));
@@ -103,6 +103,5 @@ public class Fragmento1 extends Fragment {
 
         lvListaContactos.setAdapter(new PersonaAdapter(getActivity().getApplicationContext(), (ArrayList<Persona>) personaDAO.mostrarPersonas()));
     }
-*/
 
 }
