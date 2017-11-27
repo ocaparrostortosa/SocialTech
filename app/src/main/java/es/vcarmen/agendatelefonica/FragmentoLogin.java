@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ public class FragmentoLogin extends Fragment {
     private AlertDialog.Builder dialogo;
     private View view;
     private Button botonLogin;
+    private TextView botonRegistro;
     private CardView cardView;
     private ProgressBar barraProgreso;
 
@@ -65,19 +67,42 @@ public class FragmentoLogin extends Fragment {
         barraProgreso = view.findViewById(R.id.progressBar);
         cardView = view.findViewById(R.id.cardViewLogin);
         botonLogin = view.findViewById(R.id.botonLogin);
+        botonRegistro = view.findViewById(R.id.tvRegistro);
         botonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 accionBotonLogin();
             }
         });
+        botonRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                accionBotonRegistro();
+            }
+        });
+
     }
 
     private void accionBotonLogin(){
-        barraProgreso.setVisibility(View.VISIBLE);
-        cardView.setEnabled(false);
+        obtenerDatosYHacerLogin();
 
-        //((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1());
+        barraProgreso.setVisibility(View.VISIBLE);
+        cardView.setVisibility(View.INVISIBLE);
+
+        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1());
+    }
+
+    private void obtenerDatosYHacerLogin(){
+        EditText etUsuario = view.findViewById(R.id.campo_usuario);
+        EditText etClave = view.findViewById(R.id.campo_password);
+
+        String nombreUsuario = etUsuario.getText().toString();
+        String claveUsuario = etClave.getText().toString();
+
+    }
+
+    private void accionBotonRegistro(){
+        //Abrir activity registro
     }
 
 }
