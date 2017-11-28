@@ -23,6 +23,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by OSCAR on 18/10/2017.
  */
@@ -83,15 +86,25 @@ public class FragmentoRegistro extends Fragment {
         EditText etClave = view.findViewById(R.id.campo_password);
         EditText etConfirmarClave = view.findViewById(R.id.campo_confirm_password);
 
-        String nombreUsuario = etUsuario.getText().toString();
+        String emailUsuario = etUsuario.getText().toString();
         String claveUsuario = etClave.getText().toString();
         String claveConfirmadaUsuario = etConfirmarClave.getText().toString();
 
         //CREAR MÉTODO PARA LOGIN Y CAMBIARLO POR ESTE---------------------------------------------
-        if(claveUsuario.equals(claveConfirmadaUsuario))
-            accionBotonRegistro(nombreUsuario, claveUsuario);
-        else
+
+        Pattern patron = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        Matcher elMatcher = patron.matcher(emailUsuario);
+        //Log.d("Matcher", "¿Concuerda?: " + elMatcher.matches());
+        if(elMatcher.matches()) {
+            //Log.d("Matcher", "Concuerda!!!!!!!!!!");
+            accionBotonRegistro(emailUsuario, claveUsuario);
+        }else if(claveUsuario.length() < 6){
+            mostrarSnackbar("LAS CONTRASEÑA DEBE TENER AL MENOS 6 CARÁCTERES");
+        }else if(!claveUsuario.equals(claveConfirmadaUsuario)){
             mostrarSnackbar("LAS CONTRASEÑAS NO COINCIDEN");
+        }else {
+            mostrarSnackbar("EL E-MAIL NO ES VÁLIDO");
+        }
 
     }
 
@@ -103,6 +116,7 @@ public class FragmentoRegistro extends Fragment {
                 Log.d("Firebase", "createUserWithEmail:onComplete:"+ email + ":" + passwd + ":" + task.isSuccessful());
 
                 if (!task.isSuccessful()) {
+                    Log.d("Firebase", "createUserWithEmail:onComplete:Exception:" + task.getException());
                     accionMalRegistro();
                 }else{
                     accionBuenRegistro();
@@ -135,7 +149,7 @@ public class FragmentoRegistro extends Fragment {
     }
 
     private void accionMalRegistro(){
-        mostrarSnackbar("EL EMAIL ESTÁ REGISTRADO O NO ES VÁLIDO");
+        mostrarSnackbar("EL EMAIL INTRODUCIDO YA ESTÁ REGISTRADO");
     }
 
     private void mostrarSnackbar(String mensaje){
