@@ -90,31 +90,31 @@ public class FragmentoRegistro extends Fragment {
         String claveUsuario = etClave.getText().toString();
         String claveConfirmadaUsuario = etConfirmarClave.getText().toString();
 
-        //CREAR MÉTODO PARA LOGIN Y CAMBIARLO POR ESTE---------------------------------------------
 
         Pattern patron = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         Matcher elMatcher = patron.matcher(emailUsuario);
         //Log.d("Matcher", "¿Concuerda?: " + elMatcher.matches());
-        if(elMatcher.matches()) {
-            //Log.d("Matcher", "Concuerda!!!!!!!!!!");
-            accionBotonRegistro(emailUsuario, claveUsuario);
+        if(!elMatcher.matches()) {
+            mostrarSnackbar("EL E-MAIL NO ES VÁLIDO");
         }else if(claveUsuario.length() < 6){
             mostrarSnackbar("LAS CONTRASEÑA DEBE TENER AL MENOS 6 CARÁCTERES");
         }else if(!claveUsuario.equals(claveConfirmadaUsuario)){
             mostrarSnackbar("LAS CONTRASEÑAS NO COINCIDEN");
         }else {
-            mostrarSnackbar("EL E-MAIL NO ES VÁLIDO");
+            barraProgreso.setVisibility(View.VISIBLE);
+            cardView.setVisibility(View.INVISIBLE);
+            //Log.d("Matcher", "Concuerda!!!!!!!!!!");
+            registroEnFirebase(emailUsuario, claveUsuario);
         }
 
     }
 
-    private void accionBotonRegistro(final String email, final String passwd){
+    private void registroEnFirebase(final String email, final String passwd){
         //Abrir activity registro
         mAuth.createUserWithEmailAndPassword(email, passwd).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 Log.d("Firebase", "createUserWithEmail:onComplete:"+ email + ":" + passwd + ":" + task.isSuccessful());
-
                 if (!task.isSuccessful()) {
                     Log.d("Firebase", "createUserWithEmail:onComplete:Exception:" + task.getException());
                     accionMalRegistro();
@@ -143,12 +143,15 @@ public class FragmentoRegistro extends Fragment {
     }
 
     private void accionBuenRegistro(){
-        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1());
-        barraProgreso.setVisibility(View.VISIBLE);
-        cardView.setVisibility(View.INVISIBLE);
+        mostrarSnackbar("¡REGISTRO REALIZADO CORRECTAMENTE!");
+        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new FragmentoLogin());
+        barraProgreso.setVisibility(View.INVISIBLE);
+        cardView.setVisibility(View.VISIBLE);
     }
 
     private void accionMalRegistro(){
+        barraProgreso.setVisibility(View.INVISIBLE);
+        cardView.setVisibility(View.VISIBLE);
         mostrarSnackbar("EL EMAIL INTRODUCIDO YA ESTÁ REGISTRADO");
     }
 
