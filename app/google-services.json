@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "96244489229-av9edb5faqp61ori0pjvrvon094d2svh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "es.vcarmen.agendatelefonica",
+            "certificate_hash": "0920684ecd467f731da321ff30b5a0ad8d28d43e"
+          }
+        },
+        {
           "client_id": "96244489229-325k49f0c27e4bils646qjrmjfbdlrbb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

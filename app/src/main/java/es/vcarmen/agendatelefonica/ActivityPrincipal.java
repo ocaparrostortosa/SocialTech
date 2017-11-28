@@ -36,6 +36,7 @@ public class ActivityPrincipal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+
         inicialize();
         /**
         controlador = new Controlador(this, new PersonaDAO());

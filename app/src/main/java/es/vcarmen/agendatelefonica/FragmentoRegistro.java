@@ -1,12 +1,10 @@
 package es.vcarmen.agendatelefonica;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -15,43 +13,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
 
 /**
  * Created by OSCAR on 18/10/2017.
  */
 
-public class FragmentoLogin extends Fragment {
+public class FragmentoRegistro extends Fragment {
 
-    FloatingActionButton boton;
     private Activity activity;
-    private PersonaDAO personaDAO = new PersonaDAO();
-    private ArrayList<Persona> listaPersonas;
-    private AlertDialog.Builder dialogo;
     private View view;
-    private Button botonLogin;
-    private TextView botonRegistro;
+    private Button botonRegistro;
     private CardView cardView;
     private ProgressBar barraProgreso;
     //Firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    public FragmentoLogin(){}
-
-    public FragmentoLogin(PersonaDAO personaDAO){
-        this.personaDAO = personaDAO;
-    }
+    public FragmentoRegistro(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.layout_login, container, false);
+        view = inflater.inflate(R.layout.layout_registro, container, false);
         //Firebase
         accionesFirebase();
         return view;
@@ -65,54 +56,59 @@ public class FragmentoLogin extends Fragment {
     }
 
     private void initialize(){
+        accionFabVueltraAtras();
 
-        TextView textoLogin = view.findViewById(R.id.textoRegistro);
+        TextView textoRegistro = view.findViewById(R.id.textoRegistro);
         Typeface tpf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Login.ttf");
-        textoLogin.setTypeface(tpf);
+        textoRegistro.setTypeface(tpf);
 
         barraProgreso = view.findViewById(R.id.progressBar);
         cardView = view.findViewById(R.id.cardViewLogin);
-        botonLogin = view.findViewById(R.id.botonRegistro);
-        botonRegistro = view.findViewById(R.id.tvRegistro);
-        botonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                accionBotonLogin();
-            }
-        });
+        botonRegistro = view.findViewById(R.id.botonRegistro);
         botonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                accionBotonRegistro();
+                accionBotonRegisterNow();
             }
         });
 
     }
 
-    private void accionBotonLogin(){
-        obtenerDatosYHacerLogin();
-
-        barraProgreso.setVisibility(View.VISIBLE);
-        cardView.setVisibility(View.INVISIBLE);
-
-        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1());
+    private void accionBotonRegisterNow(){
+        obtenerDatosYRegistrarse();
     }
 
-    private void obtenerDatosYHacerLogin(){
-        EditText etEmail = view.findViewById(R.id.email_usuario);
+    private void obtenerDatosYRegistrarse(){
+        EditText etUsuario = view.findViewById(R.id.email_usuario);
         EditText etClave = view.findViewById(R.id.campo_password);
+        EditText etConfirmarClave = view.findViewById(R.id.campo_confirm_password);
 
-        String emailUsuario = etEmail.getText().toString();
+        String nombreUsuario = etUsuario.getText().toString();
         String claveUsuario = etClave.getText().toString();
+        String claveConfirmadaUsuario = etConfirmarClave.getText().toString();
 
         //CREAR MÉTODO PARA LOGIN Y CAMBIARLO POR ESTE---------------------------------------------
-        //accionBotonRegistro(emailUsuario, claveUsuario);
+        if(claveUsuario.equals(claveConfirmadaUsuario))
+            accionBotonRegistro(nombreUsuario, claveUsuario);
+        else
+            mostrarSnackbar("LAS CONTRASEÑAS NO COINCIDEN");
 
     }
 
-    private void accionBotonRegistro(){
+    private void accionBotonRegistro(final String email, final String passwd){
         //Abrir activity registro
-        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new FragmentoRegistro());
+        mAuth.createUserWithEmailAndPassword(email, passwd).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d("Firebase", "createUserWithEmail:onComplete:"+ email + ":" + passwd + ":" + task.isSuccessful());
+
+                if (!task.isSuccessful()) {
+                    accionMalRegistro();
+                }else{
+                    accionBuenRegistro();
+                }
+            }
+        });
     }
 
     private void accionesFirebase(){
@@ -132,6 +128,16 @@ public class FragmentoLogin extends Fragment {
         };
     }
 
+    private void accionBuenRegistro(){
+        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1());
+        barraProgreso.setVisibility(View.VISIBLE);
+        cardView.setVisibility(View.INVISIBLE);
+    }
+
+    private void accionMalRegistro(){
+        mostrarSnackbar("EL EMAIL ESTÁ REGISTRADO O NO ES VÁLIDO");
+    }
+
     private void mostrarSnackbar(String mensaje){
         final Snackbar snackbar = Snackbar.make(view, mensaje , Snackbar.LENGTH_LONG);
         snackbar.setAction("ACEPTAR", new View.OnClickListener() {
@@ -141,6 +147,17 @@ public class FragmentoLogin extends Fragment {
             }
         });
         snackbar.show();
+    }
+
+    private void accionFabVueltraAtras(){
+        ImageButton backButton = view.findViewById(R.id.backFabButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new FragmentoLogin());
+            }
+        });
+
     }
 
     @Override
