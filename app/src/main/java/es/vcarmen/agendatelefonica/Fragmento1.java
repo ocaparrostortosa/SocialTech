@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +43,9 @@ public class Fragmento1 extends Fragment {
     private ArrayList<Persona> listaPersonas;
     private AlertDialog.Builder dialogo;
     private View view;
+    //Firebase
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     public Fragmento1(){}
 
@@ -48,6 +56,7 @@ public class Fragmento1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.layout_fragmento1, container, false);
+        accionesFirebase();
         ButterKnife.bind(this, view);
         return view;
 
@@ -56,6 +65,7 @@ public class Fragmento1 extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        //Log.d("Firebase","Usuario logueado actualmente: " + )
         initialize();
     }
 
@@ -102,6 +112,27 @@ public class Fragmento1 extends Fragment {
         }
 
         lvListaContactos.setAdapter(new PersonaAdapter(getActivity().getApplicationContext(), (ArrayList<Persona>) personaDAO.mostrarPersonas()));
+    }
+
+    private void accionesFirebase(){
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser usuario = mAuth.getCurrentUser();
+        Log.d("FirebaseEmail", "Has entrado en accionesFirebase():" + usuario.getEmail());
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                FirebaseUser usuario = firebaseAuth.getCurrentUser();
+                if(usuario != null){
+                    //usuario ya logueado
+                    Log.d("FirebaseEmail", "onAuthStateChanged:usuario_logueado:Email:" + usuario.getEmail());
+                }else{
+                    //usuario no logueado
+                    Log.d("FirebaseEmail", "onAuthStateChanged:usuario_no_logueado:");
+                }
+            }
+        };
     }
 
 }

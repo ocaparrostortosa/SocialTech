@@ -17,6 +17,9 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +41,8 @@ public class Fragmento2 extends DialogFragment {
     private SeekBar skEdadContacto;
     private TextView tvEdad;
     private PersonaDAO personaDAO = new PersonaDAO();
+    //Firebase
+    private FirebaseAuth mAuth;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -50,6 +55,7 @@ public class Fragmento2 extends DialogFragment {
         if(savedInstanceState != null){
             personaDAO = (PersonaDAO) savedInstanceState.getSerializable("personaDAO");
         }
+        accionesFirebase();
         return inflater.inflate(R.layout.layout_fragmento2, container, false);
     }
 
@@ -102,6 +108,7 @@ public class Fragmento2 extends DialogFragment {
         int foto = obtenerImagenContacto(sexoContacto);
 
         personaDAO.addPersona(new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto));
+        personaDAO.guardarListaPersonasEnFirebase();
         cambiarDeFragmentoPasandoLista(personaDAO);
     }
 
@@ -191,6 +198,12 @@ public class Fragmento2 extends DialogFragment {
                 break;
         }
         return imagen;
+    }
+
+    private void accionesFirebase() {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser usuario = mAuth.getCurrentUser();
+        Log.d("FirebaseEmail", "Has entrado en Fragmento2:accionesFirebase():" + usuario.getEmail() + ":Id:" + usuario.getUid());
     }
 
 }
