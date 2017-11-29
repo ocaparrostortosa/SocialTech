@@ -20,15 +20,14 @@ import java.util.List;
 
 public class PersonaDAO implements Serializable {
 
-    private ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
-    private ArrayList<Persona> listaPersonasFirebase = new ArrayList<Persona>();
+    private ArrayList<Object> listaPersonas = new ArrayList<Object>();
     //Firebase
     private FirebaseAuth mAuth;
     private FirebaseUser usuario;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     //Valor estático
-    private static final String listaContactos = "listaContactos";
+    private static final String listaContactos = "listaPersonas";
 
     public void addPersona(Persona persona){
         listaPersonas.add(persona);
@@ -38,17 +37,35 @@ public class PersonaDAO implements Serializable {
         listaPersonas.remove(persona);
     }
 
-    public ArrayList<Persona> mostrarPersonas(){
+    public ArrayList<Object> mostrarPersonas(){
         return listaPersonas;
+    }
+
+    public void guardarListaContactosEnFirebase(ArrayList<Object> listaPersonas2){
+        this.listaPersonas = listaPersonas2;
+        inicializarVariablesFirebase();
+
+        // Escribir datos en Firebase
+        //Log.v("LISTACONTACTOS", ":" + listaPersonas.toString());
+        if(!listaPersonas.isEmpty()) {
+            Log.v("FirebaseEmail", ":guardarListaFirebase:ConDatos:" + listaPersonas);
+            myRef.child(listaContactos).setValue(this.listaPersonas);
+        }else
+            Log.v("FirebaseEmail", ":guardarListaFirebase:Vacia");
+
     }
 
     public void guardarListaContactosEnFirebase(){
         inicializarVariablesFirebase();
 
         // Escribir datos en Firebase
-        myRef.child(listaContactos).setValue(listaPersonas);
+        //Log.v("LISTACONTACTOS", ":" + listaPersonas.toString());
+        if(!listaPersonas.isEmpty()) {
+            Log.v("FirebaseEmail", ":guardarListaFirebase:ConDatos:" + listaPersonas);
+            myRef.child(listaContactos).setValue(listaPersonas);
+        }else
+            Log.v("FirebaseEmail", ":guardarListaFirebase:Vacia");
 
-        //Log.d("FirebaseEmail", "PersonaDAO:listaLongitud:" + listaPersonas.size() + ":usuario:" + usuario.getEmail());
     }
 
     public ArrayList obtenerListaContactosDeFirebase(){
@@ -58,8 +75,9 @@ public class PersonaDAO implements Serializable {
         myRef.child(listaContactos).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                listaPersonasFirebase = (ArrayList) dataSnapshot.getValue();
+                listaPersonas = (ArrayList) dataSnapshot.getValue();
                 Log.d("FirebaseEmail", "PersonaDAO:longitud:" + listaPersonas.size() + ":listaLeida:" + listaPersonas);
+
             }
 
             @Override
@@ -67,9 +85,7 @@ public class PersonaDAO implements Serializable {
                 Log.d("FirebaseEmail", "PersonaDAO:listaLeida:Error al leer en firebase.");
             }
         });
-        Log.d("FirebaseEmail", "PersonaDAO:obteneeeer:longitud:" + listaPersonas.size() + ":listaLeida:" + listaPersonas);
-        while (listaPersonas.size() == 0)
-            listaPersonas = listaPersonasFirebase;
+
         return listaPersonas;
     }
 
@@ -78,6 +94,7 @@ public class PersonaDAO implements Serializable {
         usuario = mAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference(""+usuario.getUid());
+        Log.v("FirebaseEmail", ":Usuario logueado:" + usuario.getUid());
     }
 
 }

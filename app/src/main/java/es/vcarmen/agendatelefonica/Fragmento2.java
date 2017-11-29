@@ -104,6 +104,7 @@ public class Fragmento2 extends DialogFragment {
         int foto = obtenerImagenContacto(sexoContacto);
 
         personaDAO.addPersona(new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto));
+        Log.v("FirebaseEmail","Fragmento2:accionBotonAlta:" + personaDAO.mostrarPersonas());
         personaDAO.guardarListaContactosEnFirebase();
         cambiarDeFragmentoPasandoLista(personaDAO);
     }
@@ -135,7 +136,7 @@ public class Fragmento2 extends DialogFragment {
             return RBOtro.getText().toString();
         }
         else
-            return "";
+            return RBOtro.getText().toString();
     }
 
     private void rellenarSpinnerProvincias(){

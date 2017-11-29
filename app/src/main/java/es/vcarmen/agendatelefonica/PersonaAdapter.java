@@ -1,9 +1,13 @@
 package es.vcarmen.agendatelefonica;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +15,29 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by matinal on 17/10/2017.
  */
 
-public class PersonaAdapter extends ArrayAdapter<Persona> {
+public class PersonaAdapter extends ArrayAdapter<Object> {
+    private ArrayList<Object> lista = new ArrayList<>();
 
-    public PersonaAdapter(@NonNull Context context, ArrayList<Persona> lista) {
+    public PersonaAdapter(@NonNull Context context, ArrayList<Object> lista) {
         super(context, 0, lista);
+        this.lista = lista;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Persona persona = getItem(position);
+        HashMap<String, String> o = (HashMap<String, String>) lista.get(position);
 
         if(convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user, parent, false);
@@ -37,11 +48,24 @@ public class PersonaAdapter extends ArrayAdapter<Persona> {
         TextView telefono = (TextView) convertView.findViewById(R.id.tvPhone);
         TextView email = (TextView) convertView.findViewById(R.id.tvEmail);
 
-        imagenContacto.setImageResource(persona.getImagen());
-        nombre.setText(persona.getNombre());
-        apellidos.setText(persona.getApellidos());
-        telefono.setText(persona.getTelefono());
-        email.setText(persona.getEmail());
+        switch (o.get("sexo")){
+            case "hombre":
+                imagenContacto.setImageResource(R.drawable.user_icon6);
+                break;
+            case "mujer":
+                imagenContacto.setImageResource(R.drawable.user_icon7);
+                break;
+            case "otro":
+                imagenContacto.setImageResource(R.drawable.user_icon8);
+                break;
+            default:
+                imagenContacto.setImageResource(R.drawable.user_icon8);
+                break;
+        }
+        nombre.setText(o.get("nombre"));
+        apellidos.setText(o.get("apellidos"));
+        telefono.setText(o.get("telefono"));
+        email.setText(o.get("email"));
 
         return convertView;
     }
