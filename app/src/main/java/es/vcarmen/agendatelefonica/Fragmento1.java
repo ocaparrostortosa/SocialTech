@@ -76,13 +76,13 @@ public class Fragmento1 extends Fragment {
 
     @OnItemClick(R.id.listaContactosFragmento)
     public void accionLista(int posicion){
-        listaPersonas = personaDAO.mostrarPersonas();
         ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3(listaPersonas.get(posicion)));
     }
 
     @OnItemLongClick(R.id.listaContactosFragmento)
     public boolean accionBorrarContacto(int posicion){
-        listaPersonas = personaDAO.mostrarPersonas();
+        listaPersonas = personaDAO.obtenerListaContactosDeFirebase();
+        //listaPersonas = personaDAO.mostrarPersonas();
         final int numeroEnLista = posicion;
         dialogo = new AlertDialog.Builder(view.getContext());
         //dialogo.setView(R.layout.alert_dialog);
@@ -106,12 +106,13 @@ public class Fragmento1 extends Fragment {
 
 
     private void initialize(){
-        listaPersonas = personaDAO.mostrarPersonas();
+        listaPersonas = personaDAO.obtenerListaContactosDeFirebase();
+        //listaPersonas = personaDAO.mostrarPersonas();
         if(!listaPersonas.isEmpty()){
             lvListaContactos.setVisibility(View.VISIBLE);
         }
 
-        lvListaContactos.setAdapter(new PersonaAdapter(getActivity().getApplicationContext(), (ArrayList<Persona>) personaDAO.mostrarPersonas()));
+        lvListaContactos.setAdapter(new PersonaAdapter(getActivity().getApplicationContext(), listaPersonas));
     }
 
     private void accionesFirebase(){

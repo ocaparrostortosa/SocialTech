@@ -1,7 +1,6 @@
 package es.vcarmen.agendatelefonica;
 
 import android.app.DialogFragment;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -19,9 +18,6 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by OSCAR on 18/10/2017.
@@ -108,7 +104,7 @@ public class Fragmento2 extends DialogFragment {
         int foto = obtenerImagenContacto(sexoContacto);
 
         personaDAO.addPersona(new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto));
-        personaDAO.guardarListaPersonasEnFirebase();
+        personaDAO.guardarListaContactosEnFirebase();
         cambiarDeFragmentoPasandoLista(personaDAO);
     }
 
