@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,8 +40,13 @@ public class Fragmento1 extends Fragment {
     @BindView(R.id.botonNuevoContacto)
     FloatingActionButton boton;
     private Activity activity;
+<<<<<<< HEAD
     private PersonaDAO personaDAO;
     private ArrayList<Object> listaPersonas = new ArrayList<Object>();
+=======
+    private PersonaDAO personaDAO = new PersonaDAO();
+    private ArrayList<Object> listaPersonas;
+>>>>>>> 2e808d5a8313a680b70b950c196b5e38404e6e94
     private AlertDialog.Builder dialogo;
     private View view;
     //Firebase
@@ -52,6 +58,10 @@ public class Fragmento1 extends Fragment {
     public Fragmento1(PersonaDAO personaDAO){
         this.personaDAO = personaDAO;
         this.listaPersonas = personaDAO.mostrarPersonas();
+    }
+
+    public Fragmento1(ArrayList<Object> listaPersonasFirebase){
+        this.listaPersonas = listaPersonasFirebase;
     }
 
     @Override
@@ -77,24 +87,37 @@ public class Fragmento1 extends Fragment {
 
     @OnItemClick(R.id.listaContactosFragmento)
     public void accionLista(int posicion){
+<<<<<<< HEAD
         //listaPersonas = personaDAO.mostrarPersonas();
         ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3(/*listaPersonas.get(posicion)*/));
+=======
+        /////////////////////((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3(listaPersonas.get(posicion)));
+>>>>>>> 2e808d5a8313a680b70b950c196b5e38404e6e94
     }
 
     @OnItemLongClick(R.id.listaContactosFragmento)
     public boolean accionBorrarContacto(int posicion){
+<<<<<<< HEAD
+=======
+        //listaPersonas = personaDAO.obtenerListaContactosDeFirebase();
+>>>>>>> 2e808d5a8313a680b70b950c196b5e38404e6e94
         //listaPersonas = personaDAO.mostrarPersonas();
         final int numeroEnLista = posicion;
         dialogo = new AlertDialog.Builder(view.getContext());
         //dialogo.setView(R.layout.alert_dialog);
+<<<<<<< HEAD
         dialogo.setTitle("¿Seguro que quiere eliminar el contacto '" + /*listaPersonas.get(posicion).get("") + */"'?");
+=======
+
+        /*dialogo.setTitle("¿Seguro que quiere eliminar el contacto '" + listaPersonas.get(posicion).getNombre() + "'?");
+>>>>>>> 2e808d5a8313a680b70b950c196b5e38404e6e94
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 personaDAO.removePersona(listaPersonas.get(numeroEnLista));
                 ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1(personaDAO));
             }
-        });
+        });*/
         dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -107,6 +130,7 @@ public class Fragmento1 extends Fragment {
 
 
     private void initialize(){
+<<<<<<< HEAD
         personaDAO.actualizarPersonas(listaPersonas);
         Log.v("FirebaseEmail", "F1:initialize():"+listaPersonas);
         //Log.v("FirebaseEmail", "F1:initialize():listaEnDAO:"+personaDAO.mostrarPersonas());
@@ -114,13 +138,21 @@ public class Fragmento1 extends Fragment {
             lvListaContactos.setVisibility(View.VISIBLE);
         }
 
+=======
+        //listaPersonas = personaDAO.obtenerListaContactosDeFirebase();
+        //listaPersonas = personaDAO.mostrarPersonas();
+        if(!listaPersonas.isEmpty()){
+            lvListaContactos.setVisibility(View.VISIBLE);
+        }
+        Log.v("LISTA:", "" + listaPersonas.toString());
+>>>>>>> 2e808d5a8313a680b70b950c196b5e38404e6e94
         lvListaContactos.setAdapter(new PersonaAdapter(getActivity().getApplicationContext(), listaPersonas));
     }
 
     private void accionesFirebase(){
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser usuario = mAuth.getCurrentUser();
-        Log.d("FirebaseEmail", "Has entrado en accionesFirebase():" + usuario.getEmail());
+        Log.d("FirebaseEmail", "Fragmento1:Has entrado en accionesFirebase():" + usuario.getEmail());
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override

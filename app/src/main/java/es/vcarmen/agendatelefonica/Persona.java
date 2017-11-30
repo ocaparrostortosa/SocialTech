@@ -1,12 +1,14 @@
 package es.vcarmen.agendatelefonica;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by matinal on 03/10/2017.
  */
 
-public class Persona implements Serializable{
+public class Persona extends HashMap<String, ArrayList<Persona>> implements Serializable{
     private String nombre;
     private String apellidos;
     private String telefono;
@@ -16,6 +18,8 @@ public class Persona implements Serializable{
     private String provincia;
     private int edad;
     private int imagen;
+
+    public Persona(){}
 
     public Persona(String nombre, String apellidos, String telefono, String sexo, String email, String estudios, String provincia, int edad, int imagen) {
         this.nombre = nombre;
