@@ -1,7 +1,6 @@
 package es.vcarmen.agendatelefonica;
 
 import android.app.DialogFragment;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -17,17 +16,11 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by OSCAR on 18/10/2017.
  */
 
-public class Fragmento2 extends DialogFragment {
+public class Fragmento2Empresa extends DialogFragment {
 
     private Button botonAlta;
     private Button botonBorrar;
@@ -40,24 +33,20 @@ public class Fragmento2 extends DialogFragment {
     private Spinner spProvinciaContacto;
     private SeekBar skEdadContacto;
     private TextView tvEdad;
-    private PersonaDAO personaDAO = new PersonaDAO();
-    private ArrayList<Object> listaPersonas;
-    //Firebase
-    private FirebaseAuth mAuth;
+    private EmpresaDAO empresaDAO = new EmpresaDAO();
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("personaDAO", personaDAO);
+        outState.putSerializable("empresaDAO", empresaDAO);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         if(savedInstanceState != null){
-            personaDAO = (PersonaDAO) savedInstanceState.getSerializable("personaDAO");
+            empresaDAO = (EmpresaDAO) savedInstanceState.getSerializable("empresaDAO");
         }
-        accionesFirebase();
-        return inflater.inflate(R.layout.layout_fragmento2, container, false);
+        return inflater.inflate(R.layout.layout_fragmento2empresa, container, false);
     }
 
     @Override
@@ -66,11 +55,10 @@ public class Fragmento2 extends DialogFragment {
         initialize();
     }
 
-    public Fragmento2(){}
+    public Fragmento2Empresa(){}
 
-    public Fragmento2(PersonaDAO personaDAO){
-        this.personaDAO = personaDAO;
-        this.listaPersonas = personaDAO.mostrarPersonas();
+    public Fragmento2Empresa(EmpresaDAO empresaDAO){
+        this.empresaDAO = empresaDAO;
     }
 
     private void initialize(){
@@ -109,10 +97,8 @@ public class Fragmento2 extends DialogFragment {
         int edad = obtenerInformacionSeekbarEdad();
         int foto = obtenerImagenContacto(sexoContacto);
 
-        personaDAO.addPersona(new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto));
-        //personaDAO.guardarListaPersonasEnFirebase(personaDAO);
-        ////////////////////////////////////////////////////////////Tienes que crear un metodo para añadir una única persona
-        cambiarDeFragmentoPasandoLista(personaDAO);
+        //empresaDAO.addPersona(new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto));
+        //cambiarDeFragmentoPasandoLista(personaDAO);
     }
 
     private String obtenerInformacionMACTextViewEstudios(){
@@ -186,27 +172,20 @@ public class Fragmento2 extends DialogFragment {
     }
 
     private int obtenerImagenContacto(String sexoContacto){
-        int imagen = R.drawable.user_icon8;
+        int imagen = R.drawable.user_icon5;
         switch (sexoContacto){
             case "Hombre":
-                imagen = R.drawable.user_icon6;
+                imagen = R.drawable.user_icon3;
                 break;
             case "Mujer":
-                imagen = R.drawable.user_icon7;
+                imagen = R.drawable.user_icon4;
                 break;
             case "Otro":
-                imagen = R.drawable.user_icon8;
                 break;
             default:
                 break;
         }
         return imagen;
-    }
-
-    private void accionesFirebase() {
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser usuario = mAuth.getCurrentUser();
-        Log.d("FirebaseEmail", "Has entrado en Fragmento2:accionesFirebase():" + usuario.getEmail() + ":Id:" + usuario.getUid());
     }
 
 }

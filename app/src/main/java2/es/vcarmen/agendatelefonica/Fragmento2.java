@@ -1,7 +1,6 @@
 package es.vcarmen.agendatelefonica;
 
 import android.app.DialogFragment;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -21,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by OSCAR on 18/10/2017.
@@ -112,6 +110,8 @@ public class Fragmento2 extends DialogFragment {
         personaDAO.addPersona(new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto));
         //personaDAO.guardarListaPersonasEnFirebase(personaDAO);
         ////////////////////////////////////////////////////////////Tienes que crear un metodo para añadir una única persona
+        Log.v("FirebaseEmail","Fragmento2:accionBotonAlta:" + personaDAO.mostrarPersonas());
+        personaDAO.guardarListaContactosEnFirebase();
         cambiarDeFragmentoPasandoLista(personaDAO);
     }
 
@@ -142,7 +142,7 @@ public class Fragmento2 extends DialogFragment {
             return RBOtro.getText().toString();
         }
         else
-            return "";
+            return RBOtro.getText().toString();
     }
 
     private void rellenarSpinnerProvincias(){

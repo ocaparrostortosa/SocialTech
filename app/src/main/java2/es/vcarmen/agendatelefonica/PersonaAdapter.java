@@ -1,10 +1,12 @@
 package es.vcarmen.agendatelefonica;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,20 +27,19 @@ import java.util.HashMap;
  */
 
 public class PersonaAdapter extends ArrayAdapter<Object> {
-
-    ArrayList<Object> lista = new ArrayList<>();
-    Context contexto;
+    private ArrayList<Object> lista = new ArrayList<>();
+    private Context contexto;
 
     public PersonaAdapter(@NonNull Context context, ArrayList<Object> lista) {
         super(context, 0, lista);
         this.lista = lista;
         this.contexto = context;
-    }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         HashMap<String, String> objeto = (HashMap<String, String>) lista.get(position);
+        HashMap<String, String> o = (HashMap<String, String>) lista.get(position);
 
         if(convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user, parent, false);
@@ -58,9 +63,5 @@ public class PersonaAdapter extends ArrayAdapter<Object> {
         }else{
             Log.v("FirebaseEmail", "PersonaAdap:getView():Error estado objeto:" + objeto);
         }
-
-        return convertView;
-    }
-
 
 }
