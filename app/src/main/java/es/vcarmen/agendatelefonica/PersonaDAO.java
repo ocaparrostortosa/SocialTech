@@ -1,11 +1,15 @@
 package es.vcarmen.agendatelefonica;
 
+import android.app.Activity;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,6 +38,38 @@ public class PersonaDAO implements Serializable {
     }
 
     public void actualizarPersonas(ArrayList<Object> listaActualizada) { this.listaPersonas = listaActualizada; }
+
+    public void addPersonaFireBase(Persona persona, final PersonaDAO dao, final ActivityPrincipal activity){
+        Log.v("FirebaseEmail", "PersonaDAO:addPersonaFireBase:Longitud lista:" + listaPersonas.size());
+        String posicionEnLaBd = listaPersonas.size() + "";
+
+        mAuth = FirebaseAuth.getInstance();
+        usuario = mAuth.getCurrentUser();
+
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(""+usuario.getUid());
+
+        myRef.child("listaPersonas").child(posicionEnLaBd).setValue(persona);
+        //myRef.setValue("Hello, World!");
+
+        myRef.child("listaPersonas").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.v("FirebaseEmail", "PersonaDAO:addPersonaFirebase:DataSnapshot:"+dataSnapshot.getValue());
+                if((dataSnapshot.getValue()) != null)
+                    listaPersonas = (ArrayList<Object>) dataSnapshot.getValue();
+                Log.v("FirebaseEmail", "PersonaDAO:addPersonaFirebase:onDataChange:Contenido lista en dao:"+mostrarPersonas());
+                activity.reemplazarFragmentoPrincipal(new Fragmento1(dao));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
     public void guardarListaPersonasEnFirebase(ArrayList<Object> listaPersonas){
         mAuth = FirebaseAuth.getInstance();

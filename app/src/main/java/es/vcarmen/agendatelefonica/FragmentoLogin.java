@@ -208,7 +208,8 @@ public class FragmentoLogin extends Fragment {
                 if(!listaPersonas.isEmpty())
                     personaDAO.actualizarPersonas(listaPersonas);
                 Log.v("FirebaseEmail", "FLogin:pasarAF1():Contenido lista en dao:"+personaDAO.mostrarPersonas());
-                ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1(personaDAO));
+                if((ActivityPrincipal) getActivity() != null)
+                    ((ActivityPrincipal) getActivity()).reemplazarFragmentoPrincipal(new Fragmento1(personaDAO));
             }
 
             @Override

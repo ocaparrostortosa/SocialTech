@@ -78,7 +78,7 @@ public class Fragmento1 extends Fragment {
     @OnItemClick(R.id.listaContactosFragmento)
     public void accionLista(int posicion){
         //listaPersonas = personaDAO.mostrarPersonas();
-        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3(/*listaPersonas.get(posicion)*/));
+        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3(listaPersonas, posicion));
     }
 
     @OnItemLongClick(R.id.listaContactosFragmento)

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,13 +21,15 @@ import java.util.List;
 
 public class Fragmento3 extends Fragment {
 
-    private Persona personaAMostrar;
+    private ArrayList<Object> listaPersonas;
     private View vista;
+    private int posicion;
 
     public Fragmento3(){}
 
-    public Fragmento3(Persona persona){
-        this.personaAMostrar = persona;
+    public Fragmento3(ArrayList<Object> listaPersonas, int posicion){
+        this.listaPersonas = listaPersonas;
+        this.posicion = posicion;
     }
 
     @Override
@@ -51,7 +54,7 @@ public class Fragmento3 extends Fragment {
         TextView provincia = (TextView) getView().findViewById(R.id.tvProvincia);
         TextView edad = (TextView) getView().findViewById(R.id.tvEdad);
         ImageView imagen = getView().findViewById(R.id.imagenContacto);
-
+        /**
         nombre.append(personaAMostrar.getNombre()+"");
         apellidos.append(personaAMostrar.getApellidos()+"");
         email.append(personaAMostrar.getEmail()+"");
@@ -62,7 +65,7 @@ public class Fragmento3 extends Fragment {
         edad.append(personaAMostrar.getEdad()+"");
         imagen.setImageResource(personaAMostrar.getImagen());
 
-        accionImagenContacto(imagen, personaAMostrar.getTelefono());
+        accionImagenContacto(imagen, personaAMostrar.getTelefono());*/
     }
 
     private void accionImagenContacto(ImageView imagen, final String telefono){
