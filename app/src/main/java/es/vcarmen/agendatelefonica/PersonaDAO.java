@@ -16,24 +16,26 @@ import java.util.List;
  */
 
 public class PersonaDAO implements Serializable {
-    private ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
+    private ArrayList<Object> listaPersonas = new ArrayList<Object>();
     //Firebase
     FirebaseAuth mAuth;
     FirebaseUser usuario;
 
-    public void addPersona(Persona persona){
+    public void addPersona(Object persona){
         listaPersonas.add(persona);
     }
 
-    public void removePersona(Persona persona){
+    public void removePersona(Object persona){
         listaPersonas.remove(persona);
     }
 
-    public ArrayList<Persona> mostrarPersonas(){
-        return listaPersonas;
+    public ArrayList<Object> mostrarPersonas(){
+        return this.listaPersonas;
     }
 
-    public void guardarListaPersonasEnFirebase(){
+    public void actualizarPersonas(ArrayList<Object> listaActualizada) { this.listaPersonas = listaActualizada; }
+
+    public void guardarListaPersonasEnFirebase(ArrayList<Object> listaPersonas){
         mAuth = FirebaseAuth.getInstance();
         usuario = mAuth.getCurrentUser();
 

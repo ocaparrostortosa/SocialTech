@@ -39,8 +39,8 @@ public class Fragmento1 extends Fragment {
     @BindView(R.id.botonNuevoContacto)
     FloatingActionButton boton;
     private Activity activity;
-    private PersonaDAO personaDAO = new PersonaDAO();
-    private ArrayList<Persona> listaPersonas;
+    private PersonaDAO personaDAO;
+    private ArrayList<Object> listaPersonas = new ArrayList<Object>();
     private AlertDialog.Builder dialogo;
     private View view;
     //Firebase
@@ -51,6 +51,7 @@ public class Fragmento1 extends Fragment {
 
     public Fragmento1(PersonaDAO personaDAO){
         this.personaDAO = personaDAO;
+        this.listaPersonas = personaDAO.mostrarPersonas();
     }
 
     @Override
@@ -76,17 +77,17 @@ public class Fragmento1 extends Fragment {
 
     @OnItemClick(R.id.listaContactosFragmento)
     public void accionLista(int posicion){
-        listaPersonas = personaDAO.mostrarPersonas();
-        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3(listaPersonas.get(posicion)));
+        //listaPersonas = personaDAO.mostrarPersonas();
+        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3(/*listaPersonas.get(posicion)*/));
     }
 
     @OnItemLongClick(R.id.listaContactosFragmento)
     public boolean accionBorrarContacto(int posicion){
-        listaPersonas = personaDAO.mostrarPersonas();
+        //listaPersonas = personaDAO.mostrarPersonas();
         final int numeroEnLista = posicion;
         dialogo = new AlertDialog.Builder(view.getContext());
         //dialogo.setView(R.layout.alert_dialog);
-        dialogo.setTitle("¿Seguro que quiere eliminar el contacto '" + listaPersonas.get(posicion).getNombre() + "'?");
+        dialogo.setTitle("¿Seguro que quiere eliminar el contacto '" + /*listaPersonas.get(posicion).get("") + */"'?");
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -106,12 +107,14 @@ public class Fragmento1 extends Fragment {
 
 
     private void initialize(){
-        listaPersonas = personaDAO.mostrarPersonas();
+        personaDAO.actualizarPersonas(listaPersonas);
+        Log.v("FirebaseEmail", "F1:initialize():"+listaPersonas);
+        //Log.v("FirebaseEmail", "F1:initialize():listaEnDAO:"+personaDAO.mostrarPersonas());
         if(!listaPersonas.isEmpty()){
             lvListaContactos.setVisibility(View.VISIBLE);
         }
 
-        lvListaContactos.setAdapter(new PersonaAdapter(getActivity().getApplicationContext(), (ArrayList<Persona>) personaDAO.mostrarPersonas()));
+        lvListaContactos.setAdapter(new PersonaAdapter(getActivity().getApplicationContext(), listaPersonas));
     }
 
     private void accionesFirebase(){

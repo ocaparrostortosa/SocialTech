@@ -26,6 +26,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -40,7 +45,7 @@ public class FragmentoLogin extends Fragment {
     FloatingActionButton boton;
     private Activity activity;
     private PersonaDAO personaDAO = new PersonaDAO();
-    private ArrayList<Persona> listaPersonas;
+    private ArrayList<Object> listaPersonas = new ArrayList<Object>();
     private AlertDialog.Builder dialogo;
     private View view;
     private Button botonLogin;
@@ -54,6 +59,9 @@ public class FragmentoLogin extends Fragment {
     //Firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseUser usuario;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     public FragmentoLogin(){}
 
@@ -154,7 +162,8 @@ public class FragmentoLogin extends Fragment {
                 if(task.isSuccessful()){
                     barraProgreso.setVisibility(View.VISIBLE);
                     cardView.setVisibility(View.INVISIBLE);
-                    ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1());
+                    pasarAFragmento1();
+                    //((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1());
                 }else {
                     barraProgreso.setVisibility(View.INVISIBLE);
                     cardView.setVisibility(View.VISIBLE);
@@ -179,6 +188,34 @@ public class FragmentoLogin extends Fragment {
                 }
             }
         };
+    }
+
+    private void pasarAFragmento1(){
+        mAuth = FirebaseAuth.getInstance();
+        usuario = mAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference(""+usuario.getUid());
+
+        Log.v("FirebaseEmail", "FLogin:pasarAF1():"+ usuario.getUid());
+
+        myRef.child("listaPersonas").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.v("FirebaseEmail", "FLogin:pasarAF1():DataSnapshot:"+dataSnapshot.getValue());
+                if((dataSnapshot.getValue()) != null)
+                    listaPersonas = (ArrayList<Object>) dataSnapshot.getValue();
+                Log.v("FirebaseEmail", "FLogin:pasarAF1():Longitud de la lista:"+listaPersonas.size());
+                if(!listaPersonas.isEmpty())
+                    personaDAO.actualizarPersonas(listaPersonas);
+                Log.v("FirebaseEmail", "FLogin:pasarAF1():Contenido lista en dao:"+personaDAO.mostrarPersonas());
+                ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1(personaDAO));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void mostrarSnackbar(String mensaje){

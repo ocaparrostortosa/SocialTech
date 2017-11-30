@@ -41,6 +41,7 @@ public class Fragmento2 extends DialogFragment {
     private SeekBar skEdadContacto;
     private TextView tvEdad;
     private PersonaDAO personaDAO = new PersonaDAO();
+    private ArrayList<Object> listaPersonas;
     //Firebase
     private FirebaseAuth mAuth;
 
@@ -69,6 +70,7 @@ public class Fragmento2 extends DialogFragment {
 
     public Fragmento2(PersonaDAO personaDAO){
         this.personaDAO = personaDAO;
+        this.listaPersonas = personaDAO.mostrarPersonas();
     }
 
     private void initialize(){
@@ -108,7 +110,8 @@ public class Fragmento2 extends DialogFragment {
         int foto = obtenerImagenContacto(sexoContacto);
 
         personaDAO.addPersona(new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto));
-        personaDAO.guardarListaPersonasEnFirebase();
+        //personaDAO.guardarListaPersonasEnFirebase(personaDAO);
+        ////////////////////////////////////////////////////////////Tienes que crear un metodo para añadir una única persona
         cambiarDeFragmentoPasandoLista(personaDAO);
     }
 
