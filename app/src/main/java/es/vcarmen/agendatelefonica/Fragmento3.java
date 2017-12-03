@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -45,6 +47,10 @@ public class Fragmento3 extends Fragment {
     }
 
     private void initialize(){
+        HashMap<String, String> objeto = (HashMap<String, String>) listaPersonas.get(posicion);
+        Log.v("FirebaseEmail","F3:intialize():Contenido lista:" + listaPersonas);
+        Log.v("FirebaseEmail","F3:intialize():Contenido objeto:" + objeto.get("nombre").toString());
+
         TextView nombre = (TextView) getView().findViewById(R.id.tvName);
         TextView apellidos = (TextView) getView().findViewById(R.id.tvSurname);
         TextView email = (TextView) getView().findViewById(R.id.tvEmail);
@@ -54,18 +60,19 @@ public class Fragmento3 extends Fragment {
         TextView provincia = (TextView) getView().findViewById(R.id.tvProvincia);
         TextView edad = (TextView) getView().findViewById(R.id.tvEdad);
         ImageView imagen = getView().findViewById(R.id.imagenContacto);
-        /**
-        nombre.append(personaAMostrar.getNombre()+"");
-        apellidos.append(personaAMostrar.getApellidos()+"");
-        email.append(personaAMostrar.getEmail()+"");
-        sexo.append(personaAMostrar.getSexo()+"");
-        telefono.append(personaAMostrar.getTelefono()+"");
-        estudios.append(personaAMostrar.getEstudios()+"");
-        provincia.append(personaAMostrar.getProvincia()+"");
-        edad.append(personaAMostrar.getEdad()+"");
-        imagen.setImageResource(personaAMostrar.getImagen());
 
-        accionImagenContacto(imagen, personaAMostrar.getTelefono());*/
+        nombre.append(objeto.get("nombre").toString());
+        apellidos.append(objeto.get("apellidos").toString());
+        email.append(objeto.get("email").toString());
+        sexo.append(objeto.get("sexo").toString());
+        telefono.append(objeto.get("telefono").toString());
+        estudios.append(objeto.get("estudios").toString());
+        provincia.append(objeto.get("provincia").toString());
+        Log.v("FirebaseEmail","F3:intialize():Tipo objeto edad:");
+        edad.append(String.valueOf(objeto.get("edad")));
+        imagen.setImageDrawable(getView().getResources().getDrawable(Integer.parseInt(String.valueOf(objeto.get("imagen"))), getActivity().getApplicationContext().getTheme()));
+
+        accionImagenContacto(imagen, objeto.get("nombre").toString());
     }
 
     private void accionImagenContacto(ImageView imagen, final String telefono){

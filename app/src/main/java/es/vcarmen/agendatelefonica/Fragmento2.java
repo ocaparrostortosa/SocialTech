@@ -109,13 +109,9 @@ public class Fragmento2 extends DialogFragment {
         int edad = obtenerInformacionSeekbarEdad();
         int foto = obtenerImagenContacto(sexoContacto);
 
-        //personaDAO.addPersona(new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto));
-        //personaDAO.guardarListaPersonasEnFirebase(personaDAO);
-        ////////////////////////////////////////////////////////////Tienes que crear un metodo para añadir una única persona
         Log.v("FirebaseEmail","F2:accionBotonAlta():estadoLista:" + listaPersonas);
         Persona personaAMeter = new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto);
         personaDAO.addPersonaFireBase(personaAMeter, personaDAO, (ActivityPrincipal) getActivity());
-        //cambiarDeFragmentoPasandoLista(personaDAO);
     }
 
     private String obtenerInformacionMACTextViewEstudios(){

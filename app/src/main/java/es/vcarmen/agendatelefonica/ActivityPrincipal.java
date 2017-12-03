@@ -20,15 +20,26 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 public class ActivityPrincipal extends AppCompatActivity {
 
     private Fragment fragmento1;
-    /**
-    private EditText listaContactos;
-    private Controlador controlador;
-    private Fragmento2 fragmento2;
-    private Fragmento3 fragmento3;
-     */
+    private ArrayList<Object> listaPersonas;
+    private PersonaDAO personaDAO;
+    //Firebase
+    private FirebaseAuth mAuth;
+    private FirebaseUser usuario;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
 
 
@@ -60,83 +71,6 @@ public class ActivityPrincipal extends AppCompatActivity {
     public void reemplazarFragmentoPrincipal(Fragment fragmento){
         getFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).replace(R.id.contenedor, fragmento).commit();
     }
-    /**
-    public void accionBotonAlta() {
-        //recogerInformacionEditText();
-        //this.getListaContactos().setAdapter(new PersonaAdapter(this.getApplicationContext(), listaPersonas));
-        //accionNumeroTotalContactos();
-
-    }*/
-
-
-/**
-    public EditText getEditTextNombre() {
-        return (EditText) findViewById(R.id.nombreContacto);
-    }
-
-    public EditText getEditTextApellidos() {
-        return (EditText) findViewById(R.id.apellidosContacto);
-    }
-
-    public EditText getEditTextTelefono() {
-        return (EditText) findViewById(R.id.telefonoContacto);
-    }
-
-    public EditText getEditTextEmail() {
-        return (EditText) findViewById(R.id.emailContacto);
-    }
-
-    public MultiAutoCompleteTextView getMACTextViewEstudios(){
-        return (MultiAutoCompleteTextView) findViewById(R.id.macEstudios);
-    }
-
-    public Spinner getSpinnerProvincias(){
-        return (Spinner) findViewById(R.id.spinnerProvincia);
-    }
-
-    public SeekBar getSeekbarEdad(){
-        return (SeekBar) findViewById(R.id.seekbarEdad);
-    }
-
-    public RadioButton getEditTextSexo() {
-        RadioButton RBHombre = (RadioButton) findViewById(R.id.radioButtonHombre);
-        RadioButton RBMujer = (RadioButton) findViewById(R.id.radioButtonMujer);
-        RadioButton RBOtro = (RadioButton) findViewById(R.id.radioButtonOtro);
-        if( RBHombre.isChecked() ){
-            return RBHombre;
-        }
-        if( RBMujer.isChecked() ) {
-            return RBMujer;
-        }
-        if( RBOtro.isChecked() ) {
-            return RBOtro;
-        }
-        else
-            return RBOtro;
-    }
-
-
-
-    public Button getBotonAlta() {
-        return (Button) findViewById(R.id.botonAlta);
-    }
-
-    public Button getBotonBorrar() {
-        return (Button) findViewById(R.id.botonBorrar);
-    }
-
-    public ListView getListaContactos() {
-        return (ListView) findViewById(R.id.listaContactos);
-    }
-
-    public Bundle getBundle(){ return this.getBundle(); }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        controlador.guardarBundle(outState);
-    }
-    */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,18 +80,49 @@ public class ActivityPrincipal extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //Controlar que el usuario no pueda usar el menú si aún no se ha iniciado sesión.
+        personaDAO = new PersonaDAO();
         int idSeleccionado = item.getItemId();
         switch (idSeleccionado){
             case R.id.menuOpcionNuevoContacto:
-                reemplazarFragmentoPrincipal(new Fragmento2());
+                obtenerDatosFirebase();
+                reemplazarFragmentoPrincipal(new Fragmento2(personaDAO));
                 return true;
             case R.id.menuOpcionListaContactos:
-                reemplazarFragmentoPrincipal(new Fragmento1());
+                obtenerDatosFirebase();
+                reemplazarFragmentoPrincipal(new Fragmento1(personaDAO));
                 return true;
             default:
                 super.onOptionsItemSelected(item);
         }
 
         return true;
+    }
+
+    private void obtenerDatosFirebase(){
+        mAuth = FirebaseAuth.getInstance();
+        usuario = mAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference(""+usuario.getUid());
+
+        Log.v("FirebaseEmail", "ActivityP:obtenerDatosFirebase():"+ usuario.getUid());
+
+        myRef.child("listaPersonas").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.v("FirebaseEmail", "ActivityP:obtenerDatosFirebase():DataSnapshot:"+dataSnapshot.getValue());
+                if((dataSnapshot.getValue()) != null)
+                    listaPersonas = (ArrayList<Object>) dataSnapshot.getValue();
+                Log.v("FirebaseEmail", "ActivityP:obtenerDatosFirebase():Longitud de la lista:"+listaPersonas.size());
+                if(!listaPersonas.isEmpty())
+                    personaDAO.actualizarPersonas(listaPersonas);
+                Log.v("FirebaseEmail", "ActivityP:obtenerDatosFirebase():Contenido lista en dao:"+personaDAO.mostrarPersonas());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

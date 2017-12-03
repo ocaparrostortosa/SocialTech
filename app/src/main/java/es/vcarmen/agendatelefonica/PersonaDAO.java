@@ -31,6 +31,7 @@ public class PersonaDAO implements Serializable {
 
     public void removePersona(Object persona){
         listaPersonas.remove(persona);
+        guardarListaPersonasEnFirebase(listaPersonas);
     }
 
     public ArrayList<Object> mostrarPersonas(){
@@ -75,14 +76,13 @@ public class PersonaDAO implements Serializable {
         mAuth = FirebaseAuth.getInstance();
         usuario = mAuth.getCurrentUser();
 
-        // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(""+usuario.getUid());
 
         myRef.child("listaPersonas").setValue(listaPersonas);
         //myRef.setValue("Hello, World!");
 
-        Log.d("FirebaseEmail", "PersonaDAO:listaLongitud:" + listaPersonas.size() + ":usuario:" + usuario.getEmail());
+        Log.v("FirebaseEmail", "PersonaDAO:listaLongitud:" + listaPersonas.size() + ":usuario:" + usuario.getEmail());
     }
 
 }
