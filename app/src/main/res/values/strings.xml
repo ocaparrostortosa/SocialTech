@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AgendaTelefonica</string>
+    <string name="app_name">SocialTech</string>
     <string name="Titulo">Agenda Telefónica</string>
     <string name="botonAlta">Alta</string>
     <string name="editTextNombre">Nombre: </string>

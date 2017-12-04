@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="left"
     android:orientation="vertical"
     tools:context="es.vcarmen.agendatelefonica.ActivityPrincipal">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/AppTheme"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="SocialTech"
+                    android:textColor="@color/white"
+                    android:textSize="30sp" />
+
+        </android.support.v7.widget.Toolbar>
 
 
         <RelativeLayout
@@ -15,285 +36,5 @@
             android:layout_weight="1"
             />
 
-<!--
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/editTextNombre"
-                    android:textColor="@color/black"
-                    android:paddingLeft="5dp"
-                    android:paddingTop="5dp"
-                    />
-
-                <EditText
-                    android:id="@+id/nombreContacto"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:maxLength="14"
-                    android:maxLines="1"
-                    android:inputType="text"
-
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/editTextApellidos"
-                    android:textColor="@color/black"
-                    android:paddingLeft="5dp"
-                    />
-
-                <EditText
-                    android:id="@+id/apellidosContacto"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
-                    android:maxLength="34"
-                    android:maxLines="1"
-                    android:inputType="text"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/editTextTelefono"
-                    android:textColor="@color/black"
-                    android:paddingLeft="5dp"
-                    />
-
-                <EditText
-                    android:id="@+id/telefonoContacto"
-                    android:layout_width="100sp"
-                    android:layout_height="wrap_content"
-                    android:maxLength="9"
-                    android:inputType="phone"
-                    android:maxLines="1"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/editTextEmail"
-                    android:textColor="@color/black"
-                    android:paddingLeft="5dp"
-                    />
-
-                <EditText
-                    android:id="@+id/emailContacto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLength="34"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-
-                    />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/editTextSexo"
-                android:textColor="@color/black"
-                android:paddingLeft="5dp"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:orientation="vertical"
-                android:layout_marginBottom="5dp">
-
-                <RadioGroup
-                    android:id="@+id/radioGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/radioButtonHombre"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hombre"
-                        />
-
-                    <RadioButton
-                        android:id="@+id/radioButtonMujer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mujer"
-                        />
-
-                    <RadioButton
-                        android:id="@+id/radioButtonOtro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Otro"
-                        />
-
-                </RadioGroup>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/estudios"
-                    android:backgroundTint="@android:color/transparent"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    android:paddingLeft="5dp"/>
-
-                <MultiAutoCompleteTextView
-                    android:id="@+id/macEstudios"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/titulos"
-                    android:textSize="14dp"
-                    android:textColor="@color/colorPrimary"
-                    android:completionThreshold="1"
-                    ></MultiAutoCompleteTextView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/provincia"
-                    android:backgroundTint="@android:color/transparent"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    android:paddingLeft="5dp"/>
-
-                <Spinner
-                    android:id="@+id/spinnerProvincia"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    ></Spinner>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/textViewEdad"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/edad"/>
-
-                <SeekBar
-                    android:id="@+id/seekbarEdad"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/botonAlta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="@string/botonAlta" />
-
-                <Button
-                    android:id="@+id/botonBorrar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="@string/botonBorrar" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="fill">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tituloContactos"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="14sp"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingBottom="4dp"
-                    />
-
-                <TextView
-                    android:id="@+id/numeroTotalContactos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:paddingBottom="4dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp"
-                    android:text="@string/numeroTotalContactos"
-                    android:textColor="@color/grey"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <ListView
-                android:id="@+id/listaContactos"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
-
-                />
-
-        </LinearLayout>
--->
 </LinearLayout>
 

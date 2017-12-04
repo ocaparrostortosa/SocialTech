@@ -7,8 +7,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -107,6 +110,11 @@ public class Fragmento1 extends Fragment {
 
 
     private void initialize(){
+        ActivityPrincipal activityPrincipal = (ActivityPrincipal) getActivity();
+        activityPrincipal.setEstado(true);
+        Menu menu = activityPrincipal.getMenu();
+        activityPrincipal.onCreateOptionsMenu(menu);
+
         personaDAO.actualizarPersonas(listaPersonas);
         Log.v("FirebaseEmail", "F1:initialize():"+listaPersonas);
         //Log.v("FirebaseEmail", "F1:initialize():listaEnDAO:"+personaDAO.mostrarPersonas());

@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
@@ -28,6 +32,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class ActivityPrincipal extends AppCompatActivity {
@@ -35,6 +41,9 @@ public class ActivityPrincipal extends AppCompatActivity {
     private Fragment fragmento1;
     private ArrayList<Object> listaPersonas;
     private PersonaDAO personaDAO;
+    private Toolbar toolbar;
+    private Menu menu;
+    private boolean estado = false;
     //Firebase
     private FirebaseAuth mAuth;
     private FirebaseUser usuario;
@@ -57,7 +66,19 @@ public class ActivityPrincipal extends AppCompatActivity {
 
     }
 
+    private void setActionBarPersonalStyle(){
+        toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        toolbar.setTitle("");
+        Typeface tpf = Typeface.createFromAsset(getAssets(), "fonts/Login.ttf");
+        TextView toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+        toolbarTitle.setTypeface(tpf);
+        //toolbar.setTitleTextAppearance(this, R.style.ToolbarTitleTextAppearance);
+        setSupportActionBar(toolbar);
+    }
+
     private void inicialize(){
+        setActionBarPersonalStyle();
+
         fragmento1 = new FragmentoLogin();
         getFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).add(R.id.contenedor, fragmento1).commit();
         //getFragmentManager().beginTransaction().add(R.id.contenedor, new Fragmento1Empresa()).commit();
@@ -74,8 +95,12 @@ public class ActivityPrincipal extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_opciones, menu);
-        return true;
+        this.menu = menu;
+        if(estado) {
+            getMenuInflater().inflate(R.menu.menu_opciones, menu);
+            estado = true;
+        }
+        return estado;
     }
 
     @Override
@@ -124,5 +149,17 @@ public class ActivityPrincipal extends AppCompatActivity {
 
             }
         });
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }
