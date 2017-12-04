@@ -111,9 +111,14 @@ public class Fragmento1 extends Fragment {
 
     private void initialize(){
         ActivityPrincipal activityPrincipal = (ActivityPrincipal) getActivity();
-        activityPrincipal.setEstado(true);
-        Menu menu = activityPrincipal.getMenu();
-        activityPrincipal.onCreateOptionsMenu(menu);
+        if(!activityPrincipal.isEstado()) {
+            activityPrincipal.setEstado(true);
+            Menu menu = activityPrincipal.getMenu();
+            activityPrincipal.onCreateOptionsMenu(menu);
+            TextView tituloToolbar = (TextView) ((ActivityPrincipal) getActivity()).findViewById(R.id.toolbar_title);
+            tituloToolbar.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+
+        }
 
         personaDAO.actualizarPersonas(listaPersonas);
         Log.v("FirebaseEmail", "F1:initialize():"+listaPersonas);

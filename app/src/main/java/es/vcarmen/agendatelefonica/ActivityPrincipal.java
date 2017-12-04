@@ -1,11 +1,9 @@
 package es.vcarmen.agendatelefonica;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Typeface;
-import android.support.v4.content.ContextCompat;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,15 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.GridLayout;
-import android.widget.ListView;
-import android.widget.MultiAutoCompleteTextView;
-import android.widget.RadioButton;
-import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,8 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -44,6 +31,10 @@ public class ActivityPrincipal extends AppCompatActivity {
     private Toolbar toolbar;
     private Menu menu;
     private boolean estado = false;
+    private String fragmentoActual;
+    private static final String NOMBRE_FRAGMENTO_LISTA_CONTACTOS = "class es.vcarmen.agendatelefonica.Fragmento1";
+    private static final String NOMBRE_FRAGMENTO_NUEVO_CONTACTO = "class es.vcarmen.agendatelefonica.Fragmento2";
+
     //Firebase
     private FirebaseAuth mAuth;
     private FirebaseUser usuario;
@@ -91,6 +82,8 @@ public class ActivityPrincipal extends AppCompatActivity {
 
     public void reemplazarFragmentoPrincipal(Fragment fragmento){
         getFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).replace(R.id.contenedor, fragmento).commit();
+        Log.v("Fragmentos","Fragmento actual: " + fragmento.getClass());
+        fragmentoActual = fragmento.getClass() + "";
     }
 
     @Override
@@ -106,25 +99,36 @@ public class ActivityPrincipal extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //Controlar que el usuario no pueda usar el menú si aún no se ha iniciado sesión.
+        boolean resultado;
         personaDAO = new PersonaDAO();
         int idSeleccionado = item.getItemId();
         switch (idSeleccionado){
             case R.id.menuOpcionNuevoContacto:
-                obtenerDatosFirebase();
-                reemplazarFragmentoPrincipal(new Fragmento2(personaDAO));
-                return true;
+                obtenerDatosFirebase(NOMBRE_FRAGMENTO_NUEVO_CONTACTO);
+                resultado = true;
+                break;
             case R.id.menuOpcionListaContactos:
-                obtenerDatosFirebase();
-                reemplazarFragmentoPrincipal(new Fragmento1(personaDAO));
-                return true;
+                obtenerDatosFirebase(NOMBRE_FRAGMENTO_LISTA_CONTACTOS);
+                resultado = true;
+                break;
+            case R.id.action_empresa:
+                Log.v("MenuPersonalizado","ActivityPrincipal:onOptionItemSelected:Has pulsado a la empresa");
+                resultado = true;
+                break;
+            case R.id.action_persona:
+                Log.v("MenuPersonalizado","ActivityPrincipal:onOptionItemSelected:Has pulsado a la persona");
+                resultado = true;
+                break;
             default:
                 super.onOptionsItemSelected(item);
+                resultado = false;
+                break;
         }
 
-        return true;
+        return resultado;
     }
 
-    private void obtenerDatosFirebase(){
+    private void obtenerDatosFirebase(final String fragmentoActual){
         mAuth = FirebaseAuth.getInstance();
         usuario = mAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
@@ -142,6 +146,16 @@ public class ActivityPrincipal extends AppCompatActivity {
                 if(!listaPersonas.isEmpty())
                     personaDAO.actualizarPersonas(listaPersonas);
                 Log.v("FirebaseEmail", "ActivityP:obtenerDatosFirebase():Contenido lista en dao:"+personaDAO.mostrarPersonas());
+                switch (fragmentoActual) {
+                    case NOMBRE_FRAGMENTO_LISTA_CONTACTOS:
+                        reemplazarFragmentoPrincipal(new Fragmento1(personaDAO));
+                        break;
+                    case NOMBRE_FRAGMENTO_NUEVO_CONTACTO:
+                        reemplazarFragmentoPrincipal(new Fragmento2(personaDAO));
+                        break;
+                    default:
+                        break;
+                }
             }
 
             @Override
@@ -149,6 +163,17 @@ public class ActivityPrincipal extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void mostrarSnackbar(String mensaje){
+        final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), mensaje , Snackbar.LENGTH_LONG);
+        snackbar.setAction("ACEPTAR", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 
     public Menu getMenu() {
