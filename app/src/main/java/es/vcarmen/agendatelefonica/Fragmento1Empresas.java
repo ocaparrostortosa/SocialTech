@@ -7,54 +7,47 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.OnItemLongClick;
-import butterknife.OnLongClick;
 
 /**
  * Created by OSCAR on 18/10/2017.
  */
 
-public class Fragmento1 extends Fragment {
+public class Fragmento1Empresas extends Fragment {
 
-    @BindView(R.id.listaContactosFragmento) ListView lvListaContactos;
+    @BindView(R.id.listaContactosFragmento) ListView lvListaEmpresas;
     @BindView(R.id.botonNuevoContacto)
     FloatingActionButton boton;
     private Activity activity;
-    private PersonaDAO personaDAO;
-    private ArrayList<Object> listaPersonas = new ArrayList<Object>();
+    private EmpresaDAO empresaDAO;
+    private ArrayList<Object> listaEmpresas = new ArrayList<>();
     private AlertDialog.Builder dialogo;
     private View view;
     //Firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    public Fragmento1(){}
+    public Fragmento1Empresas(){}
 
-    public Fragmento1(PersonaDAO personaDAO){
-        this.personaDAO = personaDAO;
-        this.listaPersonas = personaDAO.mostrarPersonas();
+    public Fragmento1Empresas(EmpresaDAO empresaDAO){
+        this.empresaDAO = empresaDAO;
+        this.listaEmpresas = empresaDAO.mostrarEmpresas();
+        Log.v("Fragmento1Empresas", "F1Empresas:Constructor:lista empresas:" + listaEmpresas);
     }
 
     @Override
@@ -75,27 +68,27 @@ public class Fragmento1 extends Fragment {
 
     @OnClick(R.id.botonNuevoContacto)
     public void accionBoton(){
-        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento2(personaDAO));
+        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento2Empresas(empresaDAO));
     }
 
     @OnItemClick(R.id.listaContactosFragmento)
     public void accionLista(int posicion){
-        //listaPersonas = personaDAO.mostrarEmpresas();
-        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3(listaPersonas, posicion));
+        //listaEmpresas = empresaDAO.mostrarEmpresas();
+        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3Empresas(listaEmpresas, posicion));
     }
 
     @OnItemLongClick(R.id.listaContactosFragmento)
     public boolean accionBorrarContacto(int posicion){
-        //listaPersonas = personaDAO.mostrarEmpresas();
+        //listaEmpresas = empresaDAO.mostrarEmpresas();
         final int numeroEnLista = posicion;
         dialogo = new AlertDialog.Builder(view.getContext());
         //dialogo.setView(R.layout.alert_dialog);
-        dialogo.setTitle("¿Seguro que quiere eliminar el contacto '" + /*listaPersonas.get(posicion).get("") + */"'?");
+        dialogo.setTitle("¿Seguro que quiere eliminar el contacto '" + /*listaEmpresas.get(posicion).get("") + */"'?");
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                personaDAO.removePersona(listaPersonas.get(numeroEnLista));
-                ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1(personaDAO));
+                empresaDAO.removeEmpresa(listaEmpresas.get(numeroEnLista));
+                ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1Empresas(empresaDAO));
             }
         });
         dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -110,30 +103,20 @@ public class Fragmento1 extends Fragment {
 
 
     private void initialize(){
-        ActivityPrincipal activityPrincipal = (ActivityPrincipal) getActivity();
-        if(!activityPrincipal.isEstado()) {
-            activityPrincipal.setEstado(true);
-            Menu menu = activityPrincipal.getMenu();
-            activityPrincipal.onCreateOptionsMenu(menu);
-            TextView tituloToolbar = (TextView) ((ActivityPrincipal) getActivity()).findViewById(R.id.toolbar_title);
-            tituloToolbar.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-
+        empresaDAO.actualizarEmpresas(listaEmpresas);
+        Log.v("Fragmento1Empresas", "F1Empresas:initialize():"+ listaEmpresas);
+        //Log.v("FirebaseEmail", "F1:initialize():listaEnDAO:"+empresaDAO.mostrarEmpresas());
+        if(!listaEmpresas.isEmpty()){
+            lvListaEmpresas.setVisibility(View.VISIBLE);
         }
 
-        personaDAO.actualizarPersonas(listaPersonas);
-        Log.v("FirebaseEmail", "F1:initialize():"+listaPersonas);
-        //Log.v("FirebaseEmail", "F1:initialize():listaEnDAO:"+personaDAO.mostrarEmpresas());
-        if(!listaPersonas.isEmpty()){
-            lvListaContactos.setVisibility(View.VISIBLE);
-        }
-
-        lvListaContactos.setAdapter(new PersonaAdapter(getActivity().getApplicationContext(), listaPersonas));
+        lvListaEmpresas.setAdapter(new EmpresaAdapter(getActivity().getApplicationContext(), listaEmpresas));
     }
 
     private void accionesFirebase(){
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser usuario = mAuth.getCurrentUser();
-        Log.d("FirebaseEmail", "Has entrado en accionesFirebase():" + usuario.getEmail());
+        Log.v("Fragmento1Empresas", "Has entrado en accionesFirebase():" + usuario.getEmail());
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -142,10 +125,10 @@ public class Fragmento1 extends Fragment {
                 FirebaseUser usuario = firebaseAuth.getCurrentUser();
                 if(usuario != null){
                     //usuario ya logueado
-                    Log.d("FirebaseEmail", "onAuthStateChanged:usuario_logueado:Email:" + usuario.getEmail());
+                    Log.v("Fragmento1Empresas", "onAuthStateChanged:usuario_logueado:Email:" + usuario.getEmail());
                 }else{
                     //usuario no logueado
-                    Log.d("FirebaseEmail", "onAuthStateChanged:usuario_no_logueado:");
+                    Log.v("Fragmento1Empresas", "onAuthStateChanged:usuario_no_logueado:");
                 }
             }
         };

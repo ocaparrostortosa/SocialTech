@@ -1,6 +1,7 @@
 package es.vcarmen.agendatelefonica;
 
 import android.app.Activity;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,7 +42,7 @@ public class PersonaDAO implements Serializable {
     public void actualizarPersonas(ArrayList<Object> listaActualizada) { this.listaPersonas = listaActualizada; }
 
     public void addPersonaFireBase(Persona persona, final PersonaDAO dao, final ActivityPrincipal activity){
-        Log.v("FirebaseEmail", "PersonaDAO:addPersonaFireBase:Longitud lista:" + listaPersonas.size());
+        Log.v("FirebaseEmail", "PersonaDAO:addEmpresaFireBase:Longitud lista:" + listaPersonas.size());
         String posicionEnLaBd = listaPersonas.size() + "";
 
         mAuth = FirebaseAuth.getInstance();
