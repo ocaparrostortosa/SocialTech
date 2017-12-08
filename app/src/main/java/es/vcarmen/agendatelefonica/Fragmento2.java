@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,6 +44,8 @@ public class Fragmento2 extends DialogFragment {
     private TextView tvEdad;
     private PersonaDAO personaDAO = new PersonaDAO();
     private ArrayList<Object> listaPersonas;
+
+    private View vista;
     //Firebase
     private FirebaseAuth mAuth;
 
@@ -54,6 +57,7 @@ public class Fragmento2 extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        this.vista = container;
         if(savedInstanceState != null){
             personaDAO = (PersonaDAO) savedInstanceState.getSerializable("personaDAO");
         }
@@ -110,9 +114,13 @@ public class Fragmento2 extends DialogFragment {
         int edad = obtenerInformacionSeekbarEdad();
         int foto = obtenerImagenContacto(sexoContacto);
 
-        Log.v("FirebaseEmail","F2:accionBotonAlta():estadoLista:" + listaPersonas);
-        Persona personaAMeter = new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto);
-        personaDAO.addPersonaFireBase(personaAMeter, personaDAO, (ActivityPrincipal) getActivity());
+        if(nombreContacto.equals("") && telefonoContacto.equals("")){
+            Snackbar.make(vista, "FALTAN CAMPOS OBLIGATORIOS(*)", Snackbar.LENGTH_SHORT).show();
+        }else {
+            Log.v("FirebaseEmail", "F2:accionBotonAlta():estadoLista:" + listaPersonas);
+            Persona personaAMeter = new Persona(nombreContacto, apellidoContacto, telefonoContacto, sexoContacto, emailContacto, estudios, provincia, edad, foto);
+            personaDAO.addPersonaFireBase(personaAMeter, personaDAO, (ActivityPrincipal) getActivity());
+        }
     }
 
     private String obtenerInformacionMACTextViewEstudios(){

@@ -35,7 +35,7 @@ public class Fragmento3Empresas extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        vista = inflater.inflate(R.layout.layout_fragmento3, container, false);
+        vista = inflater.inflate(R.layout.layout_fragmento3empresas, container, false);
         return vista;
     }
 
@@ -47,31 +47,31 @@ public class Fragmento3Empresas extends Fragment {
 
     private void initialize(){
         HashMap<String, String> objeto = (HashMap<String, String>) listaEmpresas.get(posicion);
-        Log.v("FirebaseEmail","F3:intialize():Contenido lista:" + listaEmpresas);
-        Log.v("FirebaseEmail","F3:intialize():Contenido objeto:" + objeto.get("nombre").toString());
+        Log.v("F3Empresas","F3:intialize():Contenido lista:" + listaEmpresas);
+        Log.v("F3Empresas","F3:intialize():Contenido objeto:" + objeto.get("nombreEmpresa").toString());
 
-        TextView nombre = (TextView) getView().findViewById(R.id.tvName);
-        TextView apellidos = (TextView) getView().findViewById(R.id.tvSurname);
-        TextView email = (TextView) getView().findViewById(R.id.tvEmail);
-        TextView sexo = (TextView) getView().findViewById(R.id.tvSexo);
-        TextView telefono = (TextView) getView().findViewById(R.id.tvTelefono);
-        TextView estudios = (TextView) getView().findViewById(R.id.tvEstudios);
-        TextView provincia = (TextView) getView().findViewById(R.id.tvProvincia);
-        TextView edad = (TextView) getView().findViewById(R.id.tvEdad);
-        ImageView imagen = getView().findViewById(R.id.imagenContacto);
+        TextView nombreEmpresa = (TextView) getView().findViewById(R.id.tvNombre);
+        TextView direccionEmpresa = (TextView) getView().findViewById(R.id.tvDireccion);
+        TextView emailCorporativo = (TextView) getView().findViewById(R.id.tvEmail);
+        TextView localidadEmpresa = (TextView) getView().findViewById(R.id.tvLocalidad);
+        TextView telefonoCorporativo = (TextView) getView().findViewById(R.id.tvTelefono);
+        TextView contactoAsociado = (TextView) getView().findViewById(R.id.tvContacto);
+        TextView provinciaEmpresa = (TextView) getView().findViewById(R.id.tvProvincia);
+        TextView observaciones = (TextView) getView().findViewById(R.id.tvObservaciones);
+        ImageView foto = getView().findViewById(R.id.imagenEmpresa);
 
-        nombre.append(objeto.get("nombre").toString());
-        apellidos.append(objeto.get("apellidos").toString());
-        email.append(objeto.get("email").toString());
-        sexo.append(objeto.get("sexo").toString());
-        telefono.append(objeto.get("telefono").toString());
-        estudios.append(objeto.get("estudios").toString());
-        provincia.append(objeto.get("provincia").toString());
-        Log.v("FirebaseEmail","F3:intialize():Tipo objeto edad:");
-        edad.append(String.valueOf(objeto.get("edad")));
-        imagen.setImageDrawable(getView().getResources().getDrawable(Integer.parseInt(String.valueOf(objeto.get("imagen"))), getActivity().getApplicationContext().getTheme()));
+        nombreEmpresa.append(objeto.get("nombreEmpresa").toString());
+        direccionEmpresa.append(objeto.get("direccionEmpresa").toString());
+        emailCorporativo.append(objeto.get("emailCorporativo").toString());
+        localidadEmpresa.append(objeto.get("localidadEmpresa").toString());
+        telefonoCorporativo.append(objeto.get("telefonoCorporativo").toString());
+        contactoAsociado.append(objeto.get("contactoAsociado").toString());
+        provinciaEmpresa.append(objeto.get("provinciaEmpresa").toString());
+        Log.v("F3Empresas","F3:intialize():Tipo objeto observaciones:");
+        observaciones.setText(String.valueOf(objeto.get("observaciones")));
+        foto.setImageDrawable(getView().getResources().getDrawable(Integer.parseInt(String.valueOf(objeto.get("foto"))), getActivity().getApplicationContext().getTheme()));
 
-        accionImagenContacto(imagen, objeto.get("nombre").toString());
+        accionImagenContacto(foto, objeto.get("telefonoCorporativo").toString());
     }
 
     private void accionImagenContacto(ImageView imagen, final String telefono){

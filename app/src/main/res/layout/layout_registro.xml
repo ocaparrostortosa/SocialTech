@@ -121,7 +121,7 @@
                                             android:layout_height="wrap_content"
                                             android:textSize="14dp"
                                             android:hint="Inserta tu email"
-                                            android:inputType="text" />
+                                            android:inputType="textEmailAddress" />
 
                                         <EditText
                                             android:id="@+id/campo_password"

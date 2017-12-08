@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menuOpcionNuevaEmpresa"
+        android:title="@string/tituloMenuNuevaEmpresa"
+        />
+
+    <item
+        android:id="@+id/menuOpcionListaEmpresas"
+        android:title="@string/tituloMenuListaEmpresas"
+        />
+
+    <item
+        android:id="@+id/action_empresa"
+        android:icon="@drawable/ic_action_empresa"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_persona"
+        android:icon="@drawable/ic_action_persona"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="always" />
+
+</menu>

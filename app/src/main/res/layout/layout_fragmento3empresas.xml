@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        >
+
+
+        <android.support.v7.widget.CardView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            cardview:cardBackgroundColor="@color/colorPrimaryDark"
+            >
+
+            <ImageView
+                android:id="@+id/imagenEmpresa"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/business_icon1"
+
+                />
+
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:text="Informacion de Empresa"
+            android:textStyle="bold"
+            android:textSize="24dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre: "
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        />
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvDireccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Direccion: "
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        />
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email corp. : "
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        />
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvTelefono"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Telefono corp. : "
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        />
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvLocalidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Localidad: "
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        />
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvProvincia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Provincia: "
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        />
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvContacto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contacto asociado: "
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        />
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvObservacionesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Observaciones: "
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvObservaciones"
+        android:background="@color/darkBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No hay observaciones"
+        android:layout_margin="15dp"
+        />
+
+</LinearLayout>

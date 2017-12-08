@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="left"
+    android:background="@color/colorPrimaryDark"
+    >
+
+    <ImageView
+        android:id="@+id/imagenEmpresa"
+        android:layout_width="wrap_content"
+        android:layout_height="29dp"
+        android:src="@drawable/user_icon8" />
+
+    <TextView
+        android:padding="2dp"
+        android:id="@+id/tvName"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre" />
+    <TextView
+        android:padding="2dp"
+        android:textColor="@color/white"
+        android:id="@+id/tvAddress"
+        android:textSize="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Localidad" />
+    <TextView
+        android:padding="2dp"
+        android:textColor="@color/white"
+        android:id="@+id/tvPhone"
+        android:textSize="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Telefono"
+        />
+    <TextView
+        android:padding="2dp"
+        android:textColor="@color/white"
+        android:id="@+id/tvEmail"
+        android:textSize="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email" />
+
+</LinearLayout>

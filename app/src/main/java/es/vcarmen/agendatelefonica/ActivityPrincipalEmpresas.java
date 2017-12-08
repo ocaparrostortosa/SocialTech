@@ -2,15 +2,18 @@ package es.vcarmen.agendatelefonica;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +37,9 @@ public class ActivityPrincipalEmpresas extends AppCompatActivity {
     private String fragmentoActual;
     private static final String NOMBRE_FRAGMENTO_LISTA_EMPRESAS = "class es.vcarmen.agendatelefonica.Fragmento1Empresas";
     private static final String NOMBRE_FRAGMENTO_NUEVO_EMPRESA = "class es.vcarmen.agendatelefonica.Fragmento2Empresas";
+
+    private CardView cardView;
+    private ProgressBar progressBar;
 
     //Firebase
     private FirebaseAuth mAuth;
@@ -82,14 +88,14 @@ public class ActivityPrincipalEmpresas extends AppCompatActivity {
 
     public void reemplazarFragmentoPrincipal(Fragment fragmento){
         getFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).replace(R.id.contenedor, fragmento).commit();
-        Log.v("Fragmentos","Fragmento actual: " + fragmento.getClass());
+        Log.v("ActivityPrEmp","Fragmento actual: " + fragmento.getClass());
         fragmentoActual = fragmento.getClass() + "";
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
-        getMenuInflater().inflate(R.menu.menu_opciones, menu);
+        getMenuInflater().inflate(R.menu.menu_opciones_empresas, menu);
         estado = true;
 
         return estado;
@@ -102,20 +108,21 @@ public class ActivityPrincipalEmpresas extends AppCompatActivity {
         empresaDAO = new EmpresaDAO();
         int idSeleccionado = item.getItemId();
         switch (idSeleccionado){
-            case R.id.menuOpcionNuevoContacto:
+            case R.id.menuOpcionNuevaEmpresa:
                 obtenerDatosFirebase(NOMBRE_FRAGMENTO_NUEVO_EMPRESA);
                 resultado = true;
                 break;
-            case R.id.menuOpcionListaContactos:
+            case R.id.menuOpcionListaEmpresas:
                 obtenerDatosFirebase(NOMBRE_FRAGMENTO_LISTA_EMPRESAS);
                 resultado = true;
                 break;
             case R.id.action_empresa:
-                Log.v("MenuPersonalizado","ActivityPrincipal:onOptionItemSelected:Has pulsado a la empresa");
+                Log.v("ActivityPrEmp","ActivityPrincipal:onOptionItemSelected:Has pulsado a la empresa");
                 resultado = true;
                 break;
             case R.id.action_persona:
-                Log.v("MenuPersonalizado","ActivityPrincipal:onOptionItemSelected:Has pulsado a la persona");
+                Log.v("MenuPersonalizado","ActivityPrincipal:onOptionItemSelected:Has pulsado a la empresa");
+                finish();
                 resultado = true;
                 break;
             default:
@@ -133,23 +140,25 @@ public class ActivityPrincipalEmpresas extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference(""+usuario.getUid());
 
-        Log.v("FirebaseEmail", "ActivityP:obtenerDatosFirebase():"+ usuario.getUid());
+        Log.v("ActivityPrEmp", "ActivityP:obtenerDatosFirebase():"+ usuario.getUid());
 
-        myRef.child("listaPersonas").addValueEventListener(new ValueEventListener() {
+        myRef.child("listaEmpresas").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.v("FirebaseEmail", "ActivityP:obtenerDatosFirebase():DataSnapshot:"+dataSnapshot.getValue());
+                Log.v("ActivityPrEmp", "ActivityP:obtenerDatosFirebase():DataSnapshot:"+dataSnapshot.getValue());
                 if((dataSnapshot.getValue()) != null)
                     listaEmpresas = (ArrayList<Object>) dataSnapshot.getValue();
-                Log.v("FirebaseEmail", "ActivityP:obtenerDatosFirebase():Longitud de la lista:"+listaEmpresas.size());
+                Log.v("ActivityPrEmp", "ActivityP:obtenerDatosFirebase():Longitud de la lista:"+listaEmpresas.size());
                 if(!listaEmpresas.isEmpty())
                     empresaDAO.actualizarEmpresas(listaEmpresas);
-                Log.v("FirebaseEmail", "ActivityP:obtenerDatosFirebase():Contenido lista en dao:"+ empresaDAO.mostrarEmpresas());
+                Log.v("ActivityPrEmp", "ActivityP:obtenerDatosFirebase():Contenido lista en dao:"+ empresaDAO.mostrarEmpresas());
                 switch (fragmentoActual) {
                     case NOMBRE_FRAGMENTO_LISTA_EMPRESAS:
+                        Log.v("ActivityPrEmp", "ActivityP:obtenerDatosFirebase():Case Lista_Empresas:");
                         reemplazarFragmentoPrincipal(new Fragmento1Empresas(empresaDAO));
                         break;
                     case NOMBRE_FRAGMENTO_NUEVO_EMPRESA:
+                        Log.v("ActivityPrEmp", "ActivityP:obtenerDatosFirebase():Case Nueva_Empresas:");
                         reemplazarFragmentoPrincipal(new Fragmento2Empresas(empresaDAO));
                         break;
                     default:
@@ -205,15 +214,4 @@ public class ActivityPrincipalEmpresas extends AppCompatActivity {
         snackbar.show();
     }
 
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
 }

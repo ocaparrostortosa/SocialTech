@@ -38,8 +38,8 @@ public class EmpresaDAO implements Serializable {
 
     public void actualizarEmpresas(ArrayList<Object> listaActualizada) { this.listaEmpresas = listaActualizada; }
 
-    public void addEmpresaFireBase(Empresa empresa, final EmpresaDAO dao, final ActivityPrincipal activity){
-        Log.v("FirebaseEmail", "EmpresaDAO:addEmpresaFireBase:Longitud lista:" + listaEmpresas.size());
+    public void addEmpresaFireBase(Empresa empresa, final EmpresaDAO dao, final ActivityPrincipalEmpresas activity){
+        Log.v("EmpresaDAO", "EmpresaDAO:addEmpresaFireBase:Longitud lista:" + listaEmpresas.size());
         String posicionEnLaBd = listaEmpresas.size() + "";
 
         mAuth = FirebaseAuth.getInstance();
@@ -55,10 +55,10 @@ public class EmpresaDAO implements Serializable {
         myRef.child("listaEmpresas").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.v("FirebaseEmail", "EmpresaDAO:addEmpresaFirebase:DataSnapshot:"+dataSnapshot.getValue());
+                Log.v("EmpresaDAO", "EmpresaDAO:addEmpresaFirebase:DataSnapshot:"+dataSnapshot.getValue());
                 if((dataSnapshot.getValue()) != null)
                     listaEmpresas = (ArrayList<Object>) dataSnapshot.getValue();
-                Log.v("FirebaseEmail", "EmpresaDAO:addEmpresaFirebase:onDataChange:Contenido lista en dao:"+ mostrarEmpresas());
+                Log.v("EmpresaDAO", "EmpresaDAO:addEmpresaFirebase:onDataChange:Contenido lista en dao:"+ mostrarEmpresas());
                 activity.reemplazarFragmentoPrincipal(new Fragmento1Empresas(dao));
             }
 
@@ -80,7 +80,7 @@ public class EmpresaDAO implements Serializable {
         myRef.child("listaEmpresas").setValue(listaEmpresas);
         //myRef.setValue("Hello, World!");
 
-        Log.v("FirebaseEmail", "EmpresaDAO:listaLongitud:" + listaEmpresas.size() + ":usuario:" + usuario.getEmail());
+        Log.v("EmpresaDAO", "EmpresaDAO:listaLongitud:" + listaEmpresas.size() + ":usuario:" + usuario.getEmail());
     }
 
 }

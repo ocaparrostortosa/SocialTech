@@ -2,9 +2,9 @@
     <string name="app_name">SocialTech</string>
     <string name="Titulo">Agenda Telefónica</string>
     <string name="botonAlta">Alta</string>
-    <string name="editTextNombre">Nombre: </string>
+    <string name="editTextNombre">Nombre*: </string>
     <string name="editTextApellidos">Apellidos: </string>
-    <string name="editTextTelefono">Teléfono: </string>
+    <string name="editTextTelefono">Teléfono*: </string>
     <string name="editTextEmail">Email: </string>
     <string name="editTextSexo">Sexo: </string>
     <string name="botonBorrar">Borrar</string>
@@ -14,7 +14,7 @@
     <string name="estudios">Títulos: </string>
     <string name="edad">Edad: </string>
     <string name="titulos">SMR,DAM,DAW,ASIR,Ingeniería,Grado,Otros </string>
-    <string name="macContactos">Inserte el nombre de un contacto asociado... </string>
+    <string name="macContactos">Inserte el nombre de un contacto </string>
     <string name="tituloMenuNuevoContacto">Nuevo contacto</string>
     <string name="tituloMenuListaContactos">Lista de contactos</string>
     <string name="editTextDireccion">Direccion:</string>
@@ -28,5 +28,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="editTextTelefonoCorp">Tlf. Corporativo*:</string>
+    <string name="editTextEmailCorp">Email corp. :</string>
+    <string name="etContactoAsociado">Contacto asociado:</string>
+    <string name="tituloMenuListaEmpresas">Lista de empresas</string>
+    <string name="tituloMenuNuevaEmpresa">Nueva empresa</string>
 
 </resources>

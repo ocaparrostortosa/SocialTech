@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:gravity="center"
+    android:background="@color/background"
+    android:layout_height="match_parent">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardElevation="5dp"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true"
+            >
+
+                <TextView
+                    android:id="@+id/textoInformacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="¡AÚN NO TIENES NINGUNA EMPRESA!\nPulsa el botón '+' para añadir una"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:background="@color/colorPrimaryLight"
+                    android:padding="2dp"
+                    />
+
+                <ListView
+                    android:id="@+id/listaEmpresasContacto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@color/colorPrimaryLight"
+                    android:visibility="invisible"
+                    />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/botonNuevaEmpresa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_plus_sign"
+                    app:elevation="5dp"
+                    app:fabSize="normal"
+                    android:layout_gravity="bottom|right"
+                    android:layout_margin="5dp"
+                    />
+
+
+
+        </android.support.v7.widget.CardView>
+
+        <!--<Button-->
+            <!--android:id="@+id/botonNuevoContacto"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="Nuevo contacto" />-->
+
+
+
+
+</FrameLayout>

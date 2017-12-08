@@ -7,70 +7,72 @@ import java.io.Serializable;
  */
 
 public class Empresa implements Serializable{
-    private String nombre;
-    private String apellidos;
-    private String telefono;
-    private String sexo;
-    private String email;
-    private String estudios;
-    private String provincia;
-    private int edad;
-    private int imagen;
+    private String nombreEmpresa;
+    private String direccionEmpresa;
+    private String telefonoCorporativo;
+    private String localidadEmpresa;
+    private String emailCorporativo;
+    private String contactoAsociado;
+    private String provinciaEmpresa;
+    private String observaciones;
+    private int foto;
 
-    public Empresa(String nombre, String apellidos, String telefono, String sexo, String email, String estudios, String provincia, int edad, int imagen) {
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.telefono = telefono;
-        this.sexo = sexo;
-        this.email = email;
-        this.estudios = estudios;
-        this.provincia = provincia;
-        this.edad = edad;
-        this.imagen = imagen;
+    //nombreEmpresa, direccionEmpresa, telefonoCorporativo, localidadEmpresa, emailCorporativo, contactoAsociado, provinciaEmpresa, localidadEmpresa, foto
+    public Empresa(String nombre, String direccion, String telefono, String localidad, String email, String contacto, String provincia, String observaciones, int imagen) {
+        this.nombreEmpresa = nombre;
+        this.direccionEmpresa = direccion;
+        this.telefonoCorporativo = telefono;
+        this.localidadEmpresa = localidad;
+        this.emailCorporativo = email;
+        this.contactoAsociado = contacto;
+        this.provinciaEmpresa = provincia;
+        this.observaciones = observaciones;
+        this.foto = imagen;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreEmpresa() {
+        return nombreEmpresa;
     }
 
-    public String getApellidos() {
-        return apellidos;
+    public String getDireccionEmpresa() {
+        return direccionEmpresa;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getTelefonoCorporativo() {
+        return telefonoCorporativo;
     }
 
-    public String getSexo() {
-        return sexo;
+    public String getLocalidadEmpresa() {
+        return localidadEmpresa;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailCorporativo() {
+        return emailCorporativo;
     }
 
-    public String getEstudios() {
-        return estudios;
+    public String getContactoAsociado() {
+        return contactoAsociado;
     }
 
-    public String getProvincia() {
-        return provincia;
+    public String getProvinciaEmpresa() {
+        return provinciaEmpresa;
     }
 
-    public int getEdad() {
-        return edad;
-    }
-
-    public int getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(int imagen) {
-        this.imagen = imagen;
+    public int getFoto() {
+        return foto;
     }
 
     @Override
     public String toString() {
-        return nombre+":"+apellidos+":"+telefono+":"+sexo+":"+email+":"+estudios+":"+provincia+":"+edad;
+        return "Empresa{" +
+                "nombreEmpresa='" + nombreEmpresa + '\'' +
+                ", direccionEmpresa='" + direccionEmpresa + '\'' +
+                ", telefonoCorporativo='" + telefonoCorporativo + '\'' +
+                ", localidadEmpresa='" + localidadEmpresa + '\'' +
+                ", emailCorporativo='" + emailCorporativo + '\'' +
+                ", contactoAsociado='" + contactoAsociado + '\'' +
+                ", provinciaEmpresa='" + provinciaEmpresa + '\'' +
+                ", foto=" + foto +
+                '}';
     }
 }

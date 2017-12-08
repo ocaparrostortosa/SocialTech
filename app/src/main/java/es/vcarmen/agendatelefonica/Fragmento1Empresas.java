@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,8 +31,8 @@ import butterknife.OnItemLongClick;
 
 public class Fragmento1Empresas extends Fragment {
 
-    @BindView(R.id.listaContactosFragmento) ListView lvListaEmpresas;
-    @BindView(R.id.botonNuevoContacto)
+    @BindView(R.id.listaEmpresasContacto) ListView lvListaEmpresas;
+    @BindView(R.id.botonNuevaEmpresa)
     FloatingActionButton boton;
     private Activity activity;
     private EmpresaDAO empresaDAO;
@@ -52,7 +53,7 @@ public class Fragmento1Empresas extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.layout_fragmento1, container, false);
+        view = inflater.inflate(R.layout.layout_fragmento1empresas, container, false);
         accionesFirebase();
         ButterKnife.bind(this, view);
         return view;
@@ -66,29 +67,30 @@ public class Fragmento1Empresas extends Fragment {
         initialize();
     }
 
-    @OnClick(R.id.botonNuevoContacto)
+    @OnClick(R.id.botonNuevaEmpresa)
     public void accionBoton(){
-        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento2Empresas(empresaDAO));
+        ((ActivityPrincipalEmpresas)getActivity()).reemplazarFragmentoPrincipal(new Fragmento2Empresas(empresaDAO));
     }
 
-    @OnItemClick(R.id.listaContactosFragmento)
+    @OnItemClick(R.id.listaEmpresasContacto)
     public void accionLista(int posicion){
         //listaEmpresas = empresaDAO.mostrarEmpresas();
-        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3Empresas(listaEmpresas, posicion));
+        ((ActivityPrincipalEmpresas)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3Empresas(listaEmpresas, posicion));
     }
 
-    @OnItemLongClick(R.id.listaContactosFragmento)
+    @OnItemLongClick(R.id.listaEmpresasContacto)
     public boolean accionBorrarContacto(int posicion){
         //listaEmpresas = empresaDAO.mostrarEmpresas();
         final int numeroEnLista = posicion;
         dialogo = new AlertDialog.Builder(view.getContext());
         //dialogo.setView(R.layout.alert_dialog);
-        dialogo.setTitle("¿Seguro que quiere eliminar el contacto '" + /*listaEmpresas.get(posicion).get("") + */"'?");
+        HashMap<String, String> objeto = (HashMap<String, String>) listaEmpresas.get(posicion);
+        dialogo.setTitle("¿Seguro que quiere eliminar la empresa '" + objeto.get("nombreEmpresa") + "'?");
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 empresaDAO.removeEmpresa(listaEmpresas.get(numeroEnLista));
-                ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1Empresas(empresaDAO));
+                ((ActivityPrincipalEmpresas)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1Empresas(empresaDAO));
             }
         });
         dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

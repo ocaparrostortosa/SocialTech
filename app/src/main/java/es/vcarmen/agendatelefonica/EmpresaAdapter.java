@@ -35,26 +35,26 @@ public class EmpresaAdapter extends ArrayAdapter<Object> {
         HashMap<String, String> objeto = (HashMap<String, String>) lista.get(position);
 
         if(convertView == null)
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_empresa, parent, false);
 
-        ImageView imagenContacto = convertView.findViewById(R.id.imagenContacto);
+        ImageView imagenEmpresa = convertView.findViewById(R.id.imagenEmpresa);
         TextView nombre = (TextView) convertView.findViewById(R.id.tvName);
-        TextView apellidos = (TextView) convertView.findViewById(R.id.tvSurname);
+        TextView localidad = (TextView) convertView.findViewById(R.id.tvAddress);
         TextView telefono = (TextView) convertView.findViewById(R.id.tvPhone);
         TextView email = (TextView) convertView.findViewById(R.id.tvEmail);
 
         Log.v("FirebaseEmail", "EmpresaAdap:getView():Estado objeto:" + objeto);
         if(objeto != null) {
-            nombre.setText(objeto.get("nombre").toString());
-            Log.v("FirebaseEmail", "EmpresaAdap:getView():Contenido nombre:" + objeto.get("nombre").toString());
-            apellidos.setText(objeto.get("apellidos").toString());
-            telefono.setText(objeto.get("telefono").toString());
-            email.setText(objeto.get("email").toString());
+            nombre.setText(objeto.get("nombreEmpresa").toString());
+            Log.v("EmpresaAdapter", "EmpresaAdap:getView():Contenido nombre:" + objeto.get("nombreEmpresa").toString());
+            localidad.setText(objeto.get("localidadEmpresa").toString());
+            telefono.setText(objeto.get("telefonoCorporativo").toString());
+            email.setText(objeto.get("emailCorporativo").toString());
             //long valor = Long.parseLong(objeto.get("imagen"));
-            Log.v("FirebaseEmail", "EmpresaAdap:getView():Tipo objeto de 'imagen':" + String.valueOf(objeto.get("imagen")) + ":int:" + R.drawable.user_icon8);
-            /////////imagenContacto.setImageDrawable(convertView.getResources().getDrawable(Integer.parseInt(String.valueOf(objeto.get("imagen"))), contexto.getTheme()));
+            Log.v("EmpresaAdapter", "EmpresaAdap:getView():Tipo objeto de 'imagen':" + String.valueOf(objeto.get("foto")) + ":int:" + R.drawable.business_icon1);
+            imagenEmpresa.setImageDrawable(convertView.getResources().getDrawable(Integer.parseInt(String.valueOf(objeto.get("foto"))), contexto.getTheme()));
         }else{
-            Log.v("FirebaseEmail", "EmpresaAdap:getView():Error estado objeto:" + objeto);
+            Log.v("EmpresaAdapter", "EmpresaAdap:getView():Error estado objeto:" + objeto);
         }
 
         return convertView;
