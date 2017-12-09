@@ -33,5 +33,7 @@
     <string name="etContactoAsociado">Contacto asociado:</string>
     <string name="tituloMenuListaEmpresas">Lista de empresas</string>
     <string name="tituloMenuNuevaEmpresa">Nueva empresa</string>
+    <string name="tvNumeroTotalContactos">Numero total de contactos: </string>
+    <string name="tvNumeroTotalEmpresas">Numero total de empresas: </string>
 
 </resources>

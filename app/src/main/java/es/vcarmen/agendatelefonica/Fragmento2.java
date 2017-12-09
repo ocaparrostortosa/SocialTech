@@ -1,13 +1,11 @@
 package es.vcarmen.agendatelefonica;
 
 import android.app.DialogFragment;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -15,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by OSCAR on 18/10/2017.
@@ -48,6 +44,7 @@ public class Fragmento2 extends DialogFragment {
     private RadioButton RBOtro;
     private PersonaDAO personaDAO = new PersonaDAO();
     private ArrayList<Object> listaPersonas;
+    private TextView tvNumeroTotalContactos;
 
     private View vista;
     //Firebase
@@ -116,6 +113,9 @@ public class Fragmento2 extends DialogFragment {
         rellenarSpinnerProvincias();
         skEdadContacto = getView().findViewById(R.id.seekbarEdad);
         accionSeekbarEdad();
+        tvNumeroTotalContactos = getView().findViewById(R.id.tvNumeroContactos);
+        if(tvNumeroTotalContactos.getText().toString().equals(getString(R.string.tvNumeroTotalContactos)))
+            tvNumeroTotalContactos.append(" " + listaPersonas.size());
     }
 
     private void accionBotonAlta(){

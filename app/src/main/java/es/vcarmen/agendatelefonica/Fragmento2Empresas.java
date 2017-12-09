@@ -1,6 +1,5 @@
 package es.vcarmen.agendatelefonica;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,6 +43,7 @@ public class Fragmento2Empresas extends DialogFragment {
     private AutoCompleteTextView acContactoAsociado;
     private Spinner spProvinciaContacto;
     private EditText etObservaciones;
+    private TextView tvNumeroTotalEmpresas;
     private EmpresaDAO empresaDAO = new EmpresaDAO();
     private ArrayList<Object> listaEmpresas;
     private ArrayList<Object> listaPersonas;
@@ -115,6 +116,9 @@ public class Fragmento2Empresas extends DialogFragment {
         spProvinciaContacto = getView().findViewById(R.id.spinnerProvincia);
         rellenarSpinnerProvincias();
         etObservaciones = getView().findViewById(R.id.etObservaciones);
+        tvNumeroTotalEmpresas = getView().findViewById(R.id.tvNumeroEmpresas);
+        if(tvNumeroTotalEmpresas.getText().toString().equals(getString(R.string.tvNumeroTotalEmpresas)))
+            tvNumeroTotalEmpresas.append(" " + listaEmpresas.size());
     }
 
     private void accionBotonAlta(){

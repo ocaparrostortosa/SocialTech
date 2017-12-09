@@ -215,6 +215,18 @@
                 android:textSize="15dp"
                 />
 
+            <TextView
+                android:id="@+id/tvNumeroEmpresas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textStyle="italic"
+                android:textSize="12dp"
+                android:layout_gravity="right"
+                android:text="@string/tvNumeroTotalEmpresas"
+                android:layout_margin="3dp"
+                />
+
         </LinearLayout>
 
         <LinearLayout
