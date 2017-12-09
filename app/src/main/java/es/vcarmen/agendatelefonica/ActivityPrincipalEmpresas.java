@@ -179,6 +179,7 @@ public class ActivityPrincipalEmpresas extends AppCompatActivity {
         usuario = mAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference(""+usuario.getUid());
+        listaEmpresas = new ArrayList<>();
 
         Log.v("FirebaseOscar", "ActivityPEmp:obtenerDatosFirebase():"+ usuario.getUid());
 
@@ -186,9 +187,10 @@ public class ActivityPrincipalEmpresas extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.v("FirebaseOscar", "ActivityPEmp:obtenerDatosFirebase():DataSnapshot:"+dataSnapshot.getValue());
-                if((dataSnapshot.getValue()) != null)
+                if((dataSnapshot.getValue()) != null) {
                     listaEmpresas = (ArrayList<Object>) dataSnapshot.getValue();
-                Log.v("FirebaseOscar", "ActivityPEmp:obtenerDatosFirebase():Longitud de la lista:"+listaEmpresas.size());
+                    Log.v("FirebaseOscar", "ActivityPEmp:obtenerDatosFirebase():Longitud de la lista:" + listaEmpresas.size());
+                }
                 if(!listaEmpresas.isEmpty())
                     empresaDAO.actualizarEmpresas(listaEmpresas);
                 Log.v("FirebaseOscar", "ActivityPEmp:obtenerDatosFirebase():Contenido lista en dao:"+ empresaDAO.mostrarEmpresas());

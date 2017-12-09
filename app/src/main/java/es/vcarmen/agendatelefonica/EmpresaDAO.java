@@ -41,7 +41,7 @@ public class EmpresaDAO implements Serializable {
     public void addEmpresaFireBase(Empresa empresa, final EmpresaDAO dao, final ActivityPrincipalEmpresas activity){
         Log.v("EmpresaDAO", "EmpresaDAO:addEmpresaFireBase:Longitud lista:" + listaEmpresas.size());
         String posicionEnLaBd = listaEmpresas.size() + "";
-
+        Log.v("EmpresaDAO", "EmpresaDAO:addEmpresaFireBase:Observaciones empresa:" + empresa.getObservaciones());
         mAuth = FirebaseAuth.getInstance();
         usuario = mAuth.getCurrentUser();
 

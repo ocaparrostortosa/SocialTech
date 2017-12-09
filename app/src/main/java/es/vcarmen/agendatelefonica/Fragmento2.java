@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -42,6 +43,9 @@ public class Fragmento2 extends DialogFragment {
     private Spinner spProvinciaContacto;
     private SeekBar skEdadContacto;
     private TextView tvEdad;
+    private RadioButton RBHombre;
+    private RadioButton RBMujer;
+    private RadioButton RBOtro;
     private PersonaDAO personaDAO = new PersonaDAO();
     private ArrayList<Object> listaPersonas;
 
@@ -88,9 +92,20 @@ public class Fragmento2 extends DialogFragment {
                 //((ActivityPrincipal)getActivity()).accionBotonAlta();
             }
         });
+        botonBorrar = (Button)getView().findViewById(R.id.botonBorrar);
+        botonBorrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                accionBotonBorrar();
+                //((ActivityPrincipal)getActivity()).accionBotonAlta();
+            }
+        });
     }
 
     private void inicializarVariables(){
+        RBHombre = (RadioButton) getView().findViewById(R.id.radioButtonHombre);
+        RBMujer = (RadioButton) getView().findViewById(R.id.radioButtonMujer);
+        RBOtro = (RadioButton) getView().findViewById(R.id.radioButtonOtro);
         etNombreContacto = getView().findViewById(R.id.nombreContacto);
         etApellidoContacto = getView().findViewById(R.id.apellidosContacto);
         etTelefonoContacto = getView().findViewById(R.id.telefonoContacto);
@@ -123,6 +138,17 @@ public class Fragmento2 extends DialogFragment {
         }
     }
 
+    private void accionBotonBorrar(){
+        etNombreContacto.setText("");
+        etApellidoContacto.setText("");
+        etTelefonoContacto.setText("");
+        etEmailContacto.setText("");
+        macEstudiosContacto.setText("");
+        spProvinciaContacto.setSelection(0);
+        skEdadContacto.setProgress(0);
+        resetearValoresBotones();
+    }
+
     private String obtenerInformacionMACTextViewEstudios(){
         String estudios = macEstudiosContacto.getText().toString();
         return estudios.replace(",","").trim().replace(" ",",");
@@ -137,9 +163,6 @@ public class Fragmento2 extends DialogFragment {
     }
 
     private String obtenerTextoBotonSeleccionado(){
-        RadioButton RBHombre = (RadioButton) getView().findViewById(R.id.radioButtonHombre);
-        RadioButton RBMujer = (RadioButton) getView().findViewById(R.id.radioButtonMujer);
-        RadioButton RBOtro = (RadioButton) getView().findViewById(R.id.radioButtonOtro);
         if( RBHombre.isChecked() ){
             return RBHombre.getText().toString();
         }
@@ -151,6 +174,12 @@ public class Fragmento2 extends DialogFragment {
         }
         else
             return "";
+    }
+
+    private void resetearValoresBotones(){
+        RBHombre.setChecked(false);
+        RBMujer.setChecked(false);
+        RBOtro.setChecked(false);
     }
 
     private void rellenarSpinnerProvincias(){

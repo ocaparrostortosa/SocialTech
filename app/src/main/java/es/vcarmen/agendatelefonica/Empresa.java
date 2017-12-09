@@ -30,6 +30,21 @@ public class Empresa implements Serializable{
         this.foto = imagen;
     }
 
+    @Override
+    public String toString() {
+        return "Empresa{" +
+                "nombreEmpresa='" + nombreEmpresa + '\'' +
+                ", direccionEmpresa='" + direccionEmpresa + '\'' +
+                ", telefonoCorporativo='" + telefonoCorporativo + '\'' +
+                ", localidadEmpresa='" + localidadEmpresa + '\'' +
+                ", emailCorporativo='" + emailCorporativo + '\'' +
+                ", contactoAsociado='" + contactoAsociado + '\'' +
+                ", provinciaEmpresa='" + provinciaEmpresa + '\'' +
+                ", observaciones='" + observaciones + '\'' +
+                ", foto=" + foto +
+                '}';
+    }
+
     public String getNombreEmpresa() {
         return nombreEmpresa;
     }
@@ -58,21 +73,11 @@ public class Empresa implements Serializable{
         return provinciaEmpresa;
     }
 
-    public int getFoto() {
-        return foto;
+    public String getObservaciones() {
+        return observaciones;
     }
 
-    @Override
-    public String toString() {
-        return "Empresa{" +
-                "nombreEmpresa='" + nombreEmpresa + '\'' +
-                ", direccionEmpresa='" + direccionEmpresa + '\'' +
-                ", telefonoCorporativo='" + telefonoCorporativo + '\'' +
-                ", localidadEmpresa='" + localidadEmpresa + '\'' +
-                ", emailCorporativo='" + emailCorporativo + '\'' +
-                ", contactoAsociado='" + contactoAsociado + '\'' +
-                ", provinciaEmpresa='" + provinciaEmpresa + '\'' +
-                ", foto=" + foto +
-                '}';
+    public int getFoto() {
+        return foto;
     }
 }
