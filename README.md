@@ -116,7 +116,7 @@ As part of a future extension of the project I would like to finish and carry ou
 
  
 Used Apps and Services
- -------------------------------------------
+====================
  ![Android Studio](https://3.bp.blogspot.com/-BVQ36vhFc0I/VsOpgnJmD-I/AAAAAAAAAFk/Z4BOOKmbxJ4/s1600/banner.PNG) ![Firebase](https://media.licdn.com/mpr/mpr/AAEAAQAAAAAAAAuEAAAAJDllZmUxNmM0LTZiMWEtNGFiNi04ZTUwLTI5ZTcxOGFjZWNhMA.png)
  
 Acknowledgments to the community of:
