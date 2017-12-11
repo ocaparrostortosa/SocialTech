@@ -30,7 +30,6 @@ import java.util.HashMap;
 /**
  * Created by OSCAR on 18/10/2017.
  */
-
 public class Fragmento2Empresas extends DialogFragment {
 
     private Button botonAlta;
@@ -57,6 +56,10 @@ public class Fragmento2Empresas extends DialogFragment {
     private DatabaseReference myRef;
     private FirebaseDatabase database;
 
+    /**
+     * Default method to save to the Bundle dao objects.
+     * @param outState
+     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -79,8 +82,15 @@ public class Fragmento2Empresas extends DialogFragment {
         initialize();
     }
 
+    /**
+     * Defult constructor.
+     */
     public Fragmento2Empresas(){}
 
+    /**
+     * Constructor which initializes the empresaDAO and the empresaDao.listaEmpresas objects.
+     * @param empresaDAO Empresa DAO object.
+     */
     public Fragmento2Empresas(EmpresaDAO empresaDAO){
         this.empresaDAO = empresaDAO;
         this.listaEmpresas = empresaDAO.mostrarEmpresas();
@@ -130,14 +140,13 @@ public class Fragmento2Empresas extends DialogFragment {
         String contactoAsociado = obtenerInformacionMACTextViewEstudios();
         String provinciaEmpresa = obtenerInformacionSpinnerProvincia();
         String observaciones = etObservaciones.getText().toString();
-        int foto = obtenerImagenContacto(localidadEmpresa);
+        int foto = obtenerImagenContacto();
 
         if(nombreEmpresa.equals("") && telefonoCorporativo.equals("")){
             Snackbar.make(vista, "FALTAN CAMPOS OBLIGATORIOS(*)", Snackbar.LENGTH_SHORT).show();
         }else{
-            Log.v("F2Empresas","F2Empresas:accionBotonAlta():estadoLista:" + listaEmpresas);
             Empresa empresaAMeter = new Empresa(nombreEmpresa, direccionEmpresa, telefonoCorporativo, localidadEmpresa, emailCorporativo, contactoAsociado, provinciaEmpresa, observaciones, foto);
-            Log.v("F2Empresas","F2Empresas:accionBotonAlta():EmpresaAMeter:" + empresaAMeter);
+
             empresaDAO.addEmpresaFireBase(empresaAMeter, empresaDAO, (ActivityPrincipalEmpresas) getActivity());
         }
     }
@@ -171,13 +180,12 @@ public class Fragmento2Empresas extends DialogFragment {
 
     private void rellenarACTextViewContactoAsociado(){
         context = getActivity().getApplicationContext();
-        listaPersonas = new ArrayList<>();
-        //REFACTORIZAR PARA AÑADIR A LA COLECCION LOS NOMBRES DE LOS CONTACTOS
+    listaPersonas = new ArrayList<>();
         myRef.child("listaPersonas").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String[] contactos;
-                Log.d("F2Empresas", "Has entrado en Fragmento2Empresas:accionesFirebase():onDataChange");
+
                 if((dataSnapshot.getValue()) != null)
                     listaPersonas = (ArrayList<Object>) dataSnapshot.getValue();
                 if(listaPersonas.isEmpty()) {
@@ -194,22 +202,18 @@ public class Fragmento2Empresas extends DialogFragment {
                 Log.d("F2Empresas", "Has entrado en Fragmento2Empresas:accionesFirebase():onCancelled:Ha habido un error");
             }
         });
-        //acContactoAsociado.setTokenizer(new AutoCompleteTextView.CommaTokenizer());
     }
 
     private void obtenerContactosDeLista(final ArrayList<Object> listaContactos){
         final String[] contactos = new String[listaContactos.size()];
-        Log.v("F2Empresas","obtenerContactosDeLista(listaPersonas):Tamaño lista:" + listaContactos.size() + ":" + listaContactos.get(0).getClass());
         for(int i = 0; i < listaContactos.size(); i++){
             final int finalI = i;
             myRef.child("listaPersonas/" + i).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.d("F2Empresas", "Fragmento2Empresas:obtenerContactosDeLista():onDataChange:" + dataSnapshot.getValue().toString() + ":" + dataSnapshot.getValue().getClass());
                     HashMap<String, String> objeto = (HashMap<String, String>) dataSnapshot.getValue();
                     contactos[finalI] = objeto.get("nombre");
                     if(finalI == listaContactos.size() -1 ) {
-                        Log.d("F2Empresas", "Fragmento2Empresas:obtenerContactosDeLista():contenidoContactos:" + contactos[finalI]);
                         ArrayAdapter arrayAdapter = new ArrayAdapter(context, R.layout.spinner_item, contactos);
                         acContactoAsociado.setAdapter(arrayAdapter);
                     }
@@ -222,16 +226,9 @@ public class Fragmento2Empresas extends DialogFragment {
                 }
             });
         }
-        //return contactos;
     }
-/**
-    private void cambiarDeFragmentoPasandoLista(EmpresaDAO empresaDAO){
-        Log.v("F2Empresas",empresaDAO.mostrarEmpresas().toString());
-        ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1Empresas(empresaDAO));
-    }
- */
 
-    private int obtenerImagenContacto(String sexoContacto){
+    private int obtenerImagenContacto(){
         int imagen = R.drawable.business_icon1;
         return imagen;
     }
@@ -240,7 +237,6 @@ public class Fragmento2Empresas extends DialogFragment {
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         usuario = mAuth.getCurrentUser();
-        Log.d("F2Empresas", "Has entrado en Fragmento2Empresas:accionesFirebase():" + usuario.getEmail() + ":Id:" + usuario.getUid());
         myRef = database.getReference(usuario.getUid());
     }
 

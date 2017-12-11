@@ -20,8 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityInformacionPersona"
-            android:screenOrientation="portrait"/>
         <activity android:name=".ActivityPrincipalEmpresas"
             android:screenOrientation="portrait"/>
     </application>

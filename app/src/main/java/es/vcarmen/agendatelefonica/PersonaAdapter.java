@@ -19,12 +19,16 @@ import java.util.HashMap;
 /**
  * Created by matinal on 17/10/2017.
  */
-
 public class PersonaAdapter extends ArrayAdapter<Object> {
 
     ArrayList<Object> lista = new ArrayList<>();
     Context contexto;
 
+    /**
+     *
+     * @param context
+     * @param lista
+     */
     public PersonaAdapter(@NonNull Context context, ArrayList<Object> lista) {
         super(context, 0, lista);
         this.lista = lista;
@@ -45,15 +49,11 @@ public class PersonaAdapter extends ArrayAdapter<Object> {
         TextView telefono = (TextView) convertView.findViewById(R.id.tvPhone);
         TextView email = (TextView) convertView.findViewById(R.id.tvEmail);
 
-        Log.v("FirebaseEmail", "PersonaAdap:getView():Estado objeto:" + objeto);
         if(objeto != null) {
             nombre.setText(objeto.get("nombre").toString());
-            Log.v("FirebaseEmail", "PersonaAdap:getView():Contenido nombre:" + objeto.get("nombre").toString());
             apellidos.setText(objeto.get("apellidos").toString());
             telefono.setText(objeto.get("telefono").toString());
             email.setText(objeto.get("email").toString());
-            //long valor = Long.parseLong(objeto.get("imagen"));
-            Log.v("FirebaseEmail", "PersonaAdap:getView():Tipo objeto de 'imagen':" + String.valueOf(objeto.get("imagen")) + ":int:" + R.drawable.user_icon8);
             imagenContacto.setImageDrawable(convertView.getResources().getDrawable(Integer.parseInt(String.valueOf(objeto.get("imagen"))), contexto.getTheme()));
         }else{
             Log.v("FirebaseEmail", "PersonaAdap:getView():Error estado objeto:" + objeto);

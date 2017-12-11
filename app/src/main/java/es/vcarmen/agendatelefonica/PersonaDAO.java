@@ -19,16 +19,11 @@ import java.util.List;
 /**
  * Created by matinal on 03/10/2017.
  */
-
 public class PersonaDAO implements Serializable {
     private ArrayList<Object> listaPersonas = new ArrayList<Object>();
     //Firebase
     FirebaseAuth mAuth;
     FirebaseUser usuario;
-
-    public void addPersona(Object persona){
-        listaPersonas.add(persona);
-    }
 
     public void removePersona(Object persona){
         listaPersonas.remove(persona);

@@ -20,15 +20,22 @@ import java.util.List;
 /**
  * Created by OSCAR on 18/10/2017.
  */
-
 public class Fragmento3 extends Fragment {
 
     private ArrayList<Object> listaPersonas;
     private View vista;
     private int posicion;
 
+    /**
+     * Default constructor.
+     */
     public Fragmento3(){}
 
+    /**
+     *
+     * @param listaPersonas
+     * @param posicion
+     */
     public Fragmento3(ArrayList<Object> listaPersonas, int posicion){
         this.listaPersonas = listaPersonas;
         this.posicion = posicion;
@@ -48,8 +55,6 @@ public class Fragmento3 extends Fragment {
 
     private void initialize(){
         HashMap<String, String> objeto = (HashMap<String, String>) listaPersonas.get(posicion);
-        Log.v("FirebaseEmail","F3:intialize():Contenido lista:" + listaPersonas);
-        Log.v("FirebaseEmail","F3:intialize():Contenido objeto:" + objeto.get("nombre").toString());
 
         TextView nombre = (TextView) getView().findViewById(R.id.tvName);
         TextView apellidos = (TextView) getView().findViewById(R.id.tvSurname);
@@ -68,7 +73,6 @@ public class Fragmento3 extends Fragment {
         telefono.append(objeto.get("telefono").toString());
         estudios.append(objeto.get("estudios").toString());
         provincia.append(objeto.get("provincia").toString());
-        Log.v("FirebaseEmail","F3:intialize():Tipo objeto edad:");
         edad.append(String.valueOf(objeto.get("edad")));
         imagen.setImageDrawable(getView().getResources().getDrawable(Integer.parseInt(String.valueOf(objeto.get("imagen"))), getActivity().getApplicationContext().getTheme()));
 

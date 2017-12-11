@@ -23,6 +23,11 @@ public class EmpresaAdapter extends ArrayAdapter<Object> {
     ArrayList<Object> lista = new ArrayList<>();
     Context contexto;
 
+    /**
+     *
+     * @param context
+     * @param lista
+     */
     public EmpresaAdapter(@NonNull Context context, ArrayList<Object> lista) {
         super(context, 0, lista);
         this.lista = lista;

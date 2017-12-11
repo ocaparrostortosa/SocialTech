@@ -50,8 +50,15 @@ public class Fragmento1 extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    /**
+     *
+     */
     public Fragmento1(){}
 
+    /**
+     *
+     * @param personaDAO
+     */
     public Fragmento1(PersonaDAO personaDAO){
         this.personaDAO = personaDAO;
         this.listaPersonas = personaDAO.mostrarPersonas();
@@ -73,17 +80,29 @@ public class Fragmento1 extends Fragment {
         initialize();
     }
 
+    /**
+     *
+     */
     @OnClick(R.id.botonNuevoContacto)
     public void accionBoton(){
         ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento2(personaDAO));
     }
 
+    /**
+     *
+     * @param posicion
+     */
     @OnItemClick(R.id.listaContactosFragmento)
     public void accionLista(int posicion){
         //listaPersonas = personaDAO.mostrarEmpresas();
         ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3(listaPersonas, posicion));
     }
 
+    /**
+     *
+     * @param posicion
+     * @return
+     */
     @OnItemLongClick(R.id.listaContactosFragmento)
     public boolean accionBorrarContacto(int posicion){
         //listaPersonas = personaDAO.mostrarEmpresas();

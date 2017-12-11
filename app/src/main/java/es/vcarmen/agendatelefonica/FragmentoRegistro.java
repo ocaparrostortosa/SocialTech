@@ -29,10 +29,8 @@ import java.util.regex.Pattern;
 /**
  * Created by OSCAR on 18/10/2017.
  */
-
 public class FragmentoRegistro extends Fragment {
 
-    private Activity activity;
     private View view;
     private Button botonRegistro;
     private CardView cardView;
@@ -41,6 +39,9 @@ public class FragmentoRegistro extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    /**
+     *
+     */
     public FragmentoRegistro(){}
 
     @Override

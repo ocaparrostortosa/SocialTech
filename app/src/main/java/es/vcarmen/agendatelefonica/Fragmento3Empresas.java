@@ -19,15 +19,22 @@ import java.util.HashMap;
 /**
  * Created by OSCAR on 18/10/2017.
  */
-
 public class Fragmento3Empresas extends Fragment {
 
     private ArrayList<Object> listaEmpresas;
     private View vista;
     private int posicion;
 
+    /**
+     *
+     */
     public Fragmento3Empresas(){}
 
+    /**
+     *
+     * @param listaEmpresas
+     * @param posicion
+     */
     public Fragmento3Empresas(ArrayList<Object> listaEmpresas, int posicion){
         this.listaEmpresas = listaEmpresas;
         this.posicion = posicion;
@@ -47,8 +54,6 @@ public class Fragmento3Empresas extends Fragment {
 
     private void initialize(){
         HashMap<String, String> objeto = (HashMap<String, String>) listaEmpresas.get(posicion);
-        Log.v("F3Empresas","F3:intialize():Contenido lista:" + listaEmpresas);
-        Log.v("F3Empresas","F3:intialize():Contenido objeto:" + objeto.get("nombreEmpresa").toString());
 
         TextView nombreEmpresa = (TextView) getView().findViewById(R.id.tvNombre);
         TextView direccionEmpresa = (TextView) getView().findViewById(R.id.tvDireccion);
@@ -67,7 +72,6 @@ public class Fragmento3Empresas extends Fragment {
         telefonoCorporativo.append(objeto.get("telefonoCorporativo").toString());
         contactoAsociado.append(objeto.get("contactoAsociado").toString());
         provinciaEmpresa.append(objeto.get("provinciaEmpresa").toString());
-        Log.v("F3Empresas","F3:intialize():Tipo objeto observaciones:");
         observaciones.setText(String.valueOf(objeto.get("observaciones")));
         foto.setImageDrawable(getView().getResources().getDrawable(Integer.parseInt(String.valueOf(objeto.get("foto"))), getActivity().getApplicationContext().getTheme()));
 

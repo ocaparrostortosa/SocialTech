@@ -17,7 +17,18 @@ public class Empresa implements Serializable{
     private String observaciones;
     private int foto;
 
-    //nombreEmpresa, direccionEmpresa, telefonoCorporativo, localidadEmpresa, emailCorporativo, contactoAsociado, provinciaEmpresa, localidadEmpresa, foto
+    /**
+     *
+     * @param nombre
+     * @param direccion
+     * @param telefono
+     * @param localidad
+     * @param email
+     * @param contacto
+     * @param provincia
+     * @param observaciones
+     * @param imagen
+     */
     public Empresa(String nombre, String direccion, String telefono, String localidad, String email, String contacto, String provincia, String observaciones, int imagen) {
         this.nombreEmpresa = nombre;
         this.direccionEmpresa = direccion;
@@ -45,39 +56,12 @@ public class Empresa implements Serializable{
                 '}';
     }
 
-    public String getNombreEmpresa() {
-        return nombreEmpresa;
-    }
-
-    public String getDireccionEmpresa() {
-        return direccionEmpresa;
-    }
-
-    public String getTelefonoCorporativo() {
-        return telefonoCorporativo;
-    }
-
-    public String getLocalidadEmpresa() {
-        return localidadEmpresa;
-    }
-
-    public String getEmailCorporativo() {
-        return emailCorporativo;
-    }
-
-    public String getContactoAsociado() {
-        return contactoAsociado;
-    }
-
-    public String getProvinciaEmpresa() {
-        return provinciaEmpresa;
-    }
-
+    /**
+     *
+     * @return
+     */
     public String getObservaciones() {
         return observaciones;
     }
 
-    public int getFoto() {
-        return foto;
-    }
 }

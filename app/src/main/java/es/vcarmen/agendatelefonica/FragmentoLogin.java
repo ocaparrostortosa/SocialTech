@@ -39,7 +39,6 @@ import java.util.regex.Pattern;
 /**
  * Created by OSCAR on 18/10/2017.
  */
-
 public class FragmentoLogin extends Fragment {
 
     FloatingActionButton boton;
@@ -63,11 +62,10 @@ public class FragmentoLogin extends Fragment {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
+    /**
+     *
+     */
     public FragmentoLogin(){}
-
-    public FragmentoLogin(PersonaDAO personaDAO){
-        this.personaDAO = personaDAO;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -134,7 +132,6 @@ public class FragmentoLogin extends Fragment {
         String emailUsuario = etEmail.getText().toString();
         String claveUsuario = etClave.getText().toString();
 
-        //CREAR MÉTODO PARA LOGIN Y CAMBIARLO POR ESTE---------------------------------------------
         Pattern patron = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         Matcher elMatcher = patron.matcher(emailUsuario);
 
@@ -151,7 +148,6 @@ public class FragmentoLogin extends Fragment {
     }
 
     private void accionBotonRegistro(){
-        //Abrir activity registro
         ((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new FragmentoRegistro());
     }
 
@@ -163,7 +159,6 @@ public class FragmentoLogin extends Fragment {
                     barraProgreso.setVisibility(View.VISIBLE);
                     cardView.setVisibility(View.INVISIBLE);
                     pasarAFragmento1();
-                    //((ActivityPrincipal)getActivity()).reemplazarFragmentoPrincipal(new Fragmento1());
                 }else {
                     barraProgreso.setVisibility(View.INVISIBLE);
                     cardView.setVisibility(View.VISIBLE);
@@ -180,10 +175,8 @@ public class FragmentoLogin extends Fragment {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser usuario = firebaseAuth.getCurrentUser();
                 if(usuario != null){
-                    //usuario ya logueado
                     Log.d("Firebase", "onAuthStateChanged:usuario_logueado:" + usuario.getUid());
                 }else{
-                    //usuario no logueado
                     Log.d("Firebase", "onAuthStateChanged:usuario_no_logueado:");
                 }
             }
@@ -196,19 +189,14 @@ public class FragmentoLogin extends Fragment {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference(""+usuario.getUid());
 
-        Log.v("FirebaseEmail", "FLogin:pasarAF1():"+ usuario.getUid());
-
         myRef.child("listaPersonas").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.v("FirebaseEmail", "FLogin:pasarAF1():DataSnapshot:"+dataSnapshot.getValue());
                 if((dataSnapshot.getValue()) != null)
                     listaPersonas = (ArrayList<Object>) dataSnapshot.getValue();
-                Log.v("FirebaseEmail", "FLogin:pasarAF1():Longitud de la lista:"+listaPersonas.size());
                 if(!listaPersonas.isEmpty())
                     personaDAO.actualizarPersonas(listaPersonas);
-                Log.v("FirebaseEmail", "FLogin:pasarAF1():Contenido lista en dao:"+personaDAO.mostrarPersonas());
-                if((ActivityPrincipal) getActivity() != null)
+                if(getActivity() != null)
                     ((ActivityPrincipal) getActivity()).reemplazarFragmentoPrincipal(new Fragmento1(personaDAO));
             }
 

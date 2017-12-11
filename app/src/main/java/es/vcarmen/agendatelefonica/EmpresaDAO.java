@@ -23,21 +23,35 @@ public class EmpresaDAO implements Serializable {
     FirebaseAuth mAuth;
     FirebaseUser usuario;
 
-    public void addEmpresa(Object empresa){
-        listaEmpresas.add(empresa);
-    }
-
+    /**
+     *
+     * @param empresa
+     */
     public void removeEmpresa(Object empresa){
         listaEmpresas.remove(empresa);
         guardarListaEmpresasEnFirebase(listaEmpresas);
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Object> mostrarEmpresas(){
         return this.listaEmpresas;
     }
 
+    /**
+     *
+     * @param listaActualizada
+     */
     public void actualizarEmpresas(ArrayList<Object> listaActualizada) { this.listaEmpresas = listaActualizada; }
 
+    /**
+     *
+     * @param empresa
+     * @param dao
+     * @param activity
+     */
     public void addEmpresaFireBase(Empresa empresa, final EmpresaDAO dao, final ActivityPrincipalEmpresas activity){
         Log.v("EmpresaDAO", "EmpresaDAO:addEmpresaFireBase:Longitud lista:" + listaEmpresas.size());
         String posicionEnLaBd = listaEmpresas.size() + "";
@@ -70,6 +84,10 @@ public class EmpresaDAO implements Serializable {
 
     }
 
+    /**
+     *
+     * @param listaEmpresas
+     */
     public void guardarListaEmpresasEnFirebase(ArrayList<Object> listaEmpresas){
         mAuth = FirebaseAuth.getInstance();
         usuario = mAuth.getCurrentUser();

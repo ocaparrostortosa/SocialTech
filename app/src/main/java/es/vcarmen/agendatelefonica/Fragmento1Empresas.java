@@ -28,7 +28,6 @@ import butterknife.OnItemLongClick;
 /**
  * Created by OSCAR on 18/10/2017.
  */
-
 public class Fragmento1Empresas extends Fragment {
 
     @BindView(R.id.listaEmpresasContacto) ListView lvListaEmpresas;
@@ -43,14 +42,28 @@ public class Fragmento1Empresas extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    /**
+     *
+     */
     public Fragmento1Empresas(){}
 
+    /**
+     *
+     * @param empresaDAO
+     */
     public Fragmento1Empresas(EmpresaDAO empresaDAO){
         this.empresaDAO = empresaDAO;
         this.listaEmpresas = empresaDAO.mostrarEmpresas();
         Log.v("Fragmento1Empresas", "F1Empresas:Constructor:lista empresas:" + listaEmpresas);
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.layout_fragmento1empresas, container, false);
@@ -67,17 +80,29 @@ public class Fragmento1Empresas extends Fragment {
         initialize();
     }
 
+    /**
+     *
+     */
     @OnClick(R.id.botonNuevaEmpresa)
     public void accionBoton(){
         ((ActivityPrincipalEmpresas)getActivity()).reemplazarFragmentoPrincipal(new Fragmento2Empresas(empresaDAO));
     }
 
+    /**
+     *
+     * @param posicion
+     */
     @OnItemClick(R.id.listaEmpresasContacto)
     public void accionLista(int posicion){
         //listaEmpresas = empresaDAO.mostrarEmpresas();
         ((ActivityPrincipalEmpresas)getActivity()).reemplazarFragmentoPrincipal(new Fragmento3Empresas(listaEmpresas, posicion));
     }
 
+    /**
+     *
+     * @param posicion
+     * @return
+     */
     @OnItemLongClick(R.id.listaEmpresasContacto)
     public boolean accionBorrarContacto(int posicion){
         //listaEmpresas = empresaDAO.mostrarEmpresas();

@@ -5,7 +5,6 @@ import java.io.Serializable;
 /**
  * Created by matinal on 03/10/2017.
  */
-
 public class Persona implements Serializable{
     private String nombre;
     private String apellidos;
@@ -17,6 +16,18 @@ public class Persona implements Serializable{
     private int edad;
     private int imagen;
 
+    /**
+     *
+     * @param nombre
+     * @param apellidos
+     * @param telefono
+     * @param sexo
+     * @param email
+     * @param estudios
+     * @param provincia
+     * @param edad
+     * @param imagen
+     */
     public Persona(String nombre, String apellidos, String telefono, String sexo, String email, String estudios, String provincia, int edad, int imagen) {
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -29,44 +40,36 @@ public class Persona implements Serializable{
         this.imagen = imagen;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
-    public String getApellidos() {
-        return apellidos;
-    }
-
+    /**
+     *
+     * @return
+     */
     public String getTelefono() {
         return telefono;
     }
 
-    public String getSexo() {
-        return sexo;
-    }
-
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
-    public String getEstudios() {
-        return estudios;
-    }
-
+    /**
+     *
+     * @return
+     */
     public String getProvincia() {
         return provincia;
-    }
-
-    public int getEdad() {
-        return edad;
-    }
-
-    public int getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(int imagen) {
-        this.imagen = imagen;
     }
 
     @Override

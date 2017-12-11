@@ -25,7 +25,6 @@ import java.util.ArrayList;
 /**
  * Created by OSCAR on 18/10/2017.
  */
-
 public class Fragmento2 extends DialogFragment {
 
     private Button botonAlta;
@@ -50,6 +49,10 @@ public class Fragmento2 extends DialogFragment {
     //Firebase
     private FirebaseAuth mAuth;
 
+    /**
+     *
+     * @param outState
+     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -72,8 +75,15 @@ public class Fragmento2 extends DialogFragment {
         initialize();
     }
 
+    /**
+     *
+     */
     public Fragmento2(){}
 
+    /**
+     *
+     * @param personaDAO
+     */
     public Fragmento2(PersonaDAO personaDAO){
         this.personaDAO = personaDAO;
         this.listaPersonas = personaDAO.mostrarPersonas();
