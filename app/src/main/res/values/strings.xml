@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">SocialTech</string>
-    <string name="Titulo">Agenda Telefónica</string>
+    <string name="Titulo">SocialTech</string>
     <string name="botonAlta">Alta</string>
     <string name="editTextNombre">Nombre*: </string>
     <string name="editTextApellidos">Apellidos: </string>
@@ -22,7 +22,7 @@
     <string name="editTextProvincia">Provincia:</string>
     <string name="editTextObservaciones">Observaciones:</string>
     <string name="editTextContactoAsociado">Contacto asociado:</string>
-    <string name="title_activity_principal">ActivityPrincipal</string>
+    <string name="title_activity_principal">SocialTech</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
